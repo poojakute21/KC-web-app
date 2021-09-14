@@ -1,0 +1,56 @@
+.logo-img{
+    width: 10px !important;
+    height:10px !important;
+}
+.nav-item{
+    font-size: 15px !important;
+}
+.navbar1{
+    background-color:#CE232B;
+}
+.dropdown-menu{
+    background-color: #CE232B !important;
+    font-size: 15px !important;
+}
+.navbar{
+    padding: 0px !important;
+}
+.nav-link {
+    margin-right: 30px;
+}
+.dropdown-menu:hover{
+    background-color: #CE232B !important;
+    font-size: 15px !important;
+}
+a{
+    color: #ffffff !important;
+}
+.dropdown-item:hover{
+    background-color: #c94f55 !important;
+}
+thead, .panel-heading {
+    /* background-color: #E50017; */
+    background-color: #CE232B;
+    color: #fff;
+}
+.panel-primary>.panel-heading {
+    color: #fff;
+    font-size: 15px !important;
+    background-color: #CE232B;
+    background-color: #CE232B;
+}
+.panel-success {
+    border-color: #ffffff;
+}
+.form-control{
+    margin-left:20px;
+    font-size: 14px;
+}
+label{
+    margin-left: 15px;
+    font-size: 14px;
+}
+.channelStatus{
+    margin-left: 0px;
+    font-size: 14px;
+}
