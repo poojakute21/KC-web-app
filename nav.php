@@ -9,7 +9,7 @@
         <a class="nav-link" href="../dashboard/dashboard.php">Dashboard<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Volunteer</a>
+        <a class="nav-link" href="<?php echo WEBSITE . "main.php?page=verifications/verifications"; ?>">Verifications</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Scheduling</a>

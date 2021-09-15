@@ -44,5 +44,5 @@
   </br>
   <input type="button" name="submitAdd" id="submitAdd" value="Add" class="btn btn-danger">
   <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
-</form>
+  </form>
 </div>

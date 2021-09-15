@@ -25,37 +25,6 @@ $(document).ready(function() {
 
 });
 
-function Deleterequeststatus(requeststatus_id){
-  $.ajax({
-            url:WEBSITE + 'ajax_index.php?page=ajax_files/admin_ajax',
-            type:'POST',
-            data: {'requeststatus_id' : requeststatus_id, 'type' : 'deleterequeststatus'},
-            success:function(response){
-                //alert(response);
-                var resObj = JSON.parse(response);
-                if(resObj.result == "success"){
-                  swal({
-                        title: "Success",
-                        text: "Request Status Deleted Successfully",
-                        type: "success",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ok",
-                        closeOnConfirm: true
-                    })
-                    .then((isConfirm) => {
-                        if (isConfirm) {
-                            window.location.reload();
-                        } 
-                    });                
-                }else{
-                    //alert('Request Status Not Deleted');
-                    swal("Something went wrong","Request Status not Deleted","error");
-                    window.location.reload();
-                    //swal("Something went wrong","Request Status not Updated","error");
-                }
-            }
-        });
-}
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
 </script>

@@ -25,37 +25,6 @@ $(document).ready(function() {
 
 });
 
-function DeleteChannel(channel_id){
-  $.ajax({
-            url:WEBSITE + 'ajax_index.php?page=ajax_files/admin_ajax',
-            type:'POST',
-            data: {'channel_id' : channel_id, 'type' : 'deleteChannel'},
-            success:function(response){
-                //alert(response);
-                var resObj = JSON.parse(response);
-                if(resObj.result == "success"){
-                  swal({
-                        title: "Success",
-                        text: "Channel Deleted Successfully",
-                        type: "success",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ok",
-                        closeOnConfirm: true
-                    })
-                    .then((isConfirm) => {
-                        if (isConfirm) {
-                            window.location.reload();
-                        } 
-                    });                
-                }else{
-                    //alert('Channel Not Deleted');
-                    swal("Something went wrong","Channel not Deleted","error");
-                    window.location.reload();
-                    //swal("Something went wrong","Channel not Updated","error");
-                }
-            }
-        });
-}
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
 </script>

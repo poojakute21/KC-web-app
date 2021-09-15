@@ -25,37 +25,6 @@ $(document).ready(function() {
 
 });
 
-function Deleterole(role_id){
-  $.ajax({
-            url:WEBSITE + 'ajax_index.php?page=ajax_files/admin_ajax',
-            type:'POST',
-            data: {'role_id' : role_id, 'type' : 'deleterole'},
-            success:function(response){
-                //alert(response);
-                var resObj = JSON.parse(response);
-                if(resObj.result == "success"){
-                  swal({
-                        title: "Success",
-                        text: "Role Deleted Successfully",
-                        type: "success",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ok",
-                        closeOnConfirm: true
-                    })
-                    .then((isConfirm) => {
-                        if (isConfirm) {
-                            window.location.reload();
-                        } 
-                    });                
-                }else{
-                    //alert('Role Not Deleted');
-                    swal("Something went wrong","Role not Deleted","error");
-                    window.location.reload();
-                    //swal("Something went wrong","Role not Updated","error");
-                }
-            }
-        });
-}
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
 </script>

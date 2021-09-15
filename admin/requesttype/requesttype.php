@@ -25,36 +25,6 @@ $(document).ready(function() {
 
 });
 
-function Deleterequesttype(requesttype_id){
-  $.ajax({
-            url:WEBSITE + 'ajax_index.php?page=ajax_files/admin_ajax',
-            type:'POST',
-            data: {'requesttype_id' : requesttype_id, 'type' : 'deleterequesttype'},
-            success:function(response){
-                //alert(response);
-                var resObj = JSON.parse(response);
-                if(resObj.result == "success"){
-                  swal({
-                        title: "Success",
-                        text: "Request Type Deleted Successfully",
-                        type: "success",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ok",
-                        closeOnConfirm: true
-                    })
-                    .then((isConfirm) => {
-                        if (isConfirm) {
-                            window.location.reload();
-                        } 
-                    });                
-                }else{
-                  swal("Something went wrong","Request Type not Deleted","error");
-                    window.location.reload();
-                    //swal("Something went wrong","requesttype not Updated","error");
-                }
-            }
-        });
-}
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
 </script>

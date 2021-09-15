@@ -25,37 +25,6 @@ $(document).ready(function() {
 
 });
 
-function Deletevolunteer(volunteer_id){
-  $.ajax({
-            url:WEBSITE + 'ajax_index.php?page=ajax_files/admin_ajax',
-            type:'POST',
-            data: {'volunteer_id' : volunteer_id, 'type' : 'deletevolunteer'},
-            success:function(response){
-                //alert(response);
-                var resObj = JSON.parse(response);
-                if(resObj.result == "success"){
-                  swal({
-                        title: "Success",
-                        text: "Volunteer Deleted Successfully",
-                        type: "success",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ok",
-                        closeOnConfirm: true
-                    })
-                    .then((isConfirm) => {
-                        if (isConfirm) {
-                            window.location.reload();
-                        } 
-                    });                
-                }else{
-                    //alert('Volunteer Not Deleted');
-                    swal("Something went wrong","Volunteer not Deleted","error");
-                    window.location.reload();
-                    //swal("Something went wrong","Volunteer not Updated","error");
-                }
-            }
-        });
-}
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
 </script>

@@ -38,7 +38,7 @@ require_once 'config.php';
 
             $get_page = filter_input(INPUT_GET, 'page');
 
-            $page = (!empty($get_page)) ? $get_page : "dashboard\dashboard";
+            $page = (!empty($get_page)) ? $get_page : "dashboard/dashboard";
 
             $page = strtolower($page) .".php";
             // echo $page;
@@ -48,7 +48,7 @@ require_once 'config.php';
 
                 <p><b>404.</b>&nbsp; <span class="text-muted">That's an error.</span></p>
                 <p>The requested URL was not found on this server.</p>
-                <p><b><a href="<?php echo WEBSITE . "main.php?page=dashboard\dashboard"; ?>">click here</a></b> to load home page.</p>
+                <p><b><a href="<?php echo WEBSITE . "main.php?page=dashboard/dashboard"; ?>">click here</a></b> to load home page.</p>
 
             <?php endif; ?>
 

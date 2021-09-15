@@ -25,32 +25,6 @@ $(document).ready(function() {
 
 });
 
-function DeleteDocumentType(document_id ){
-  $.ajax({
-            url:WEBSITE + 'ajax_index.php?page=ajax_files/admin_ajax',
-            type:'POST',
-            data: {'document_id ' : document_id , 'type' : 'deleteDocumentType'},
-            success:function(response){
-                //alert(response);
-                var resObj = JSON.parse(response);
-                if(resObj.result == "success"){
-                    alert('Document Type Deleted Successfully');
-                   location.reload();
-                
-                }else if(resObj.result == "same"){
-                    
-                    alert('Document Type Already Exits');
-                    location.reload();
-                
-                }else{
-                  swal("Something went wrong","Document Type not Deleted","error");
-                    
-                   location.reload();
-                    //swal("Something went wrong","Channel not Updated","error");
-                }
-            }
-        });
-}
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
 </script>
