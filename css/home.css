@@ -43,8 +43,9 @@ thead, .panel-heading {
     border-color: #ffffff;
 }
 .form-control{
-    margin-left:20px;
+    margin-left:18px;
     font-size: 14px;
+    width: 80% !important;
 }
 label{
     margin-left: 15px;

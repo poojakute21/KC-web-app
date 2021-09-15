@@ -4,7 +4,6 @@ $channel_details_res = mysqli_query($conn,$channel_details) or die(mysqli_error(
 
 ?>
 <html>
-<script type="text/javascript" src="<?php echo WEBSITE . 'js/admin/admin_view.js'; ?>"></script>
 <script>
 $(document).ready(function() {
     $('.table-bordered').DataTable();
@@ -85,7 +84,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
           <tr>
             <td class="text-center"><?php echo $channel_details_row['id']; ?></td>
             <td class="text-center"><?php echo $channel_details_row['name']; ?></td>
-            <td class="text-center"><?php echo $channel_details_row['status']; ?></td>
+            <td class="text-center"><?php echo get_status($channel_details_row['status']); ?></td>
             <?php $channel_id = core_encrypt($channel_details_row['id']); ?>
             <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/channel/edit_channel_modal&id=" . $channel_id;  ?>" data-toggle="modal" data-target="#editChannelModal">
             <span class="glyphicon glyphicon-edit"></span></a>

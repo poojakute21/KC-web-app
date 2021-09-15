@@ -261,4 +261,70 @@ if($_POST['type'] == "updaterequeststatus"){
 
 //Request Status End Here
 
+
+//Role Start Here
+if($_POST['type'] == "addrole"){ //if add submit
+
+  $parsedData = array();
+
+  $addData = $_POST['aData'];
+  //print_r($addData);
+  parse_str($addData,$parsedData);
+  
+  $roleName = $parsedData['roleName'];
+  $roleStatus = $parsedData['roleStatus'];
+
+  
+  $check_query = mysqli_query($conn, "SELECT name from ".roles." where name = '". $roleName."'") or die("mysql Error Occured");
+
+  if(mysqli_num_rows($check_query) > 0){
+
+    echo json_encode(array('result'=>'same'));
+    exit;
+
+  }else{
+
+    $query = "INSERT INTO ".roles." (`name`,`status`) VALUES ('$roleName','$roleStatus')";
+    mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+    if(mysqli_affected_rows($conn) > 0){
+
+      echo json_encode(array('result'=>'success'));
+      exit;
+
+    }else{
+      echo json_encode(array('result'=>'failed'));
+      exit;
+    }
+  }
+
+
+
+}
+
+if($_POST['type'] == "updaterole"){
+    $parsedData = array();
+  
+    $addData = $_POST['uData'];
+    parse_str($addData,$parsedData);
+     $roleId = core_decrypt($parsedData['roleId']);
+     $roleName = $parsedData['roleName'];
+     $roleStatus = $parsedData['roleStatus'];
+
+    $role_details = "UPDATE ".roles." SET `name` = '$roleName' , `status` = '$roleStatus' where `id` = '$roleId'";
+    mysqli_query($conn,$role_details) or die(mysqli_error($conn));
+  
+      if(mysqli_affected_rows($conn) > 0){
+        echo json_encode(array('result'=>'success'));
+        exit;
+  
+      }else{
+        echo json_encode(array('result'=>'failed'));
+        exit;
+      }
+  
+}
+
+//Role Status End Here
+
 ?>

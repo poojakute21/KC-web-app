@@ -14,7 +14,11 @@ require_once 'config.php';
     <link rel = "stylesheet" type = "text/css" href = "css/index.css">  
     <link rel = "stylesheet" type = "text/css" href = "css/home.css">
     <link rel="stylesheet" type = "text/css" href="css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script> </head>
+  
 </html>
 <body>
 <?php include('nav.php'); ?>

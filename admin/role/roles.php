@@ -4,7 +4,6 @@ $role_details_res = mysqli_query($conn,$role_details) or die(mysqli_error($conn)
 
 ?>
 <html>
-<script type="text/javascript" src="<?php echo WEBSITE . 'js/admin/admin_view.js'; ?>"></script>
 <script>
 $(document).ready(function() {
     $('.table-bordered').DataTable();
@@ -85,7 +84,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
           <tr>
             <td class="text-center"><?php echo $role_details_row['id']; ?></td>
             <td class="text-center"><?php echo $role_details_row['name']; ?></td>
-            <td class="text-center"><?php echo $role_details_row['status']; ?></td>
+            <td class="text-center"><?php echo get_status($role_details_row['status']); ?></td>
             <?php $role_id = core_encrypt($role_details_row['id']); ?>
             <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/role/edit_role_modal&id=" . $role_id;  ?>" data-toggle="modal" data-target="#editroleModal">
             <span class="glyphicon glyphicon-edit"></span></a>

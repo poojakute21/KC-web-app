@@ -26,8 +26,8 @@
           <a class="dropdown-item" href="<?php echo WEBSITE . "main.php?page=admin/documenttype/documenttype"; ?>">Document Types</a>
           <a class="dropdown-item" href="<?php echo WEBSITE . "main.php?page=admin/requesttype/requesttype"; ?>">Request Types</a>
           <a class="dropdown-item" href="<?php echo WEBSITE . "main.php?page=admin/requeststatus/requeststatus"; ?>">Request Statuses</a>
-          <a class="dropdown-item" href="<?php echo WEBSITE . "main.php?page=admin/roles/roles"; ?>">Roles</a>
-          <a class="dropdown-item" href="<?php echo WEBSITE . "main.php?page=admin/volunteers/volunteers"; ?>">Volunteers</a>
+          <a class="dropdown-item" href="<?php echo WEBSITE . "main.php?page=admin/role/roles"; ?>">Roles</a>
+          <a class="dropdown-item" href="<?php echo WEBSITE . "main.php?page=admin/volunteer/volunteer"; ?>">Volunteers</a>
         </div>
       </li>
     </ul>

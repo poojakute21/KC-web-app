@@ -23,5 +23,21 @@ function core_decrypt($garble) {
     return $payload;
 }
 
+function get_rolename($roleid) {
+    include('connection.php');
+    $sql = "select name from ".roles." WHERE id='".$roleid."'";
+    $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
+    $row = mysqli_fetch_assoc($result);
+    
+    return $row['name'];
+}
 
+function get_status($status) {
+    if($status == 'Y') {
+        $status_val = "Active";
+    }else {
+        $status_val = "Inactive";
+    }
+    return $status_val;
+}
 ?>
