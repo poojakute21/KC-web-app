@@ -61,7 +61,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
 <div class="panel panel-primary">
   <div class="panel-heading">
     <b>requesttype Details</b>
-    <a style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/requesttype/add_requesttype_modal";  ?>" data-toggle="modal" data-target="#addrequesttypeModal">
+    <a class="menu-list" style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/requesttype/add_requesttype_modal";  ?>" data-toggle="modal" data-target="#addrequesttypeModal">
             Add Request Type</a>
   </div>
   

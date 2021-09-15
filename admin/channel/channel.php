@@ -62,7 +62,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
 <div class="panel panel-primary">
   <div class="panel-heading">
     <b>Channel Details</b>
-    <a style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/channel/add_channel_modal";  ?>" data-toggle="modal" data-target="#addChannelModal">
+    <a class="menu-list" style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/channel/add_channel_modal";  ?>" data-toggle="modal" data-target="#addChannelModal">
             Add Channel Type</a>
   </div>
   

@@ -57,7 +57,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
 <div class="panel panel-primary">
   <div class="panel-heading">
     <b>Document Type Details</b>
-    <a style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/documenttype/add_document_modal";  ?>" data-toggle="modal" data-target="#addDocumentTypeModal">
+    <a class="menu-list" style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/documenttype/add_document_modal";  ?>" data-toggle="modal" data-target="#addDocumentTypeModal">
             Add Document Type</a>
   </div>
   

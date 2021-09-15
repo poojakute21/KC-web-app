@@ -1,9 +1,7 @@
 <script type="text/javascript">
   var WEBSITE = "<?php echo WEBSITE; ?>";
   $(document).ready(function () {
-    $('.datepicker').datepicker({
-      format: "dd/mm/yyyy"
-    });  
+    $('#example').datepicker(); 
   });
 </script>
 <script type="text/javascript" src="<?php echo WEBSITE . 'js/admin/add_volunteer_modal.js'; ?>"></script>
@@ -16,14 +14,14 @@
 
 <div class="modal-body">
   <form method="POST" id="addForm" name="addForm">
-  <label> Name : </label>
+  <label>Full Name : </label>
   <input type="text" name="volunteerName" class="form-control"></br>
   <label> Email : </label>
   <input type="text" name="volunteerEmail" class="form-control"></br>
   <label> Contact No : </label>
   <input type="text" name="volunteerContact" class="form-control"></br>
   <label> Date of Birth : </label>
-  <input type="text" name="volunteerEmail" class="form-control datepicker">
+  <input placeholder="Select date" name="volunteerBirthdate" type="text" id="example" class="form-control">
   <label> Address : </label>
   <textarea name="volunteerAddress" class="form-control"></textarea></br>
   <label> Role : </label>

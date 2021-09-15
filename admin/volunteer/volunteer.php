@@ -62,7 +62,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
 <div class="panel panel-primary">
   <div class="panel-heading">
     <b>Volunteer Details</b>
-    <a style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/volunteer/add_volunteer_modal";  ?>" data-toggle="modal" data-target="#addvolunteerModal">
+    <a class="menu-list" style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/volunteer/add_volunteer_modal";  ?>" data-toggle="modal" data-target="#addvolunteerModal">
             Add Volunteer Type</a>
   </div>
   

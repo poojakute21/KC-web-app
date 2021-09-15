@@ -22,7 +22,7 @@
     background-color: #CE232B !important;
     font-size: 15px !important;
 }
-a{
+.nav-link,.menu-list,.dropdown-item{
     color: #ffffff !important;
 }
 .dropdown-item:hover{

@@ -62,7 +62,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
 <div class="panel panel-primary">
   <div class="panel-heading">
     <b>Role Details</b>
-    <a style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/role/add_role_modal";  ?>" data-toggle="modal" data-target="#addroleModal">
+    <a class="menu-list" style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/role/add_role_modal";  ?>" data-toggle="modal" data-target="#addroleModal">
             Add Role Type</a>
   </div>
   

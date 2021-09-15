@@ -62,7 +62,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
 <div class="panel panel-primary">
   <div class="panel-heading">
     <b>Request Status Details</b>
-    <a style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/requeststatus/add_requeststatus_modal";  ?>" data-toggle="modal" data-target="#addrequeststatusModal">
+    <a class="menu-list" style="margin-left: 70%;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/requeststatus/add_requeststatus_modal";  ?>" data-toggle="modal" data-target="#addrequeststatusModal">
             Add Request Status Type</a>
   </div>
   

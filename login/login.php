@@ -24,8 +24,9 @@
         $num_rows = mysqli_num_rows($result);
         $row = mysqli_fetch_assoc($result);
         if ($num_rows == 1) {
-            $_SESSION['username'] = $username;
+            $_SESSION['useremail'] = $username;
             $_SESSION['roleid'] = $row['role_id'];
+            $_SESSION['username'] = $row['name'];
             // Redirect to user dashboard page
             header("Location: ../main.php");
         } else {
