@@ -16,7 +16,6 @@ $(document).ready(function(){
         });
 
         if (channelStatus_typeData.length === 0) {
-            // alert('Enter Description!');
             emptyFields.push("Status");
         }
 
@@ -24,7 +23,6 @@ $(document).ready(function(){
         if(emptyFields.length === 0)
         {
             // all good nothing empty then fetch form data
-
         }
         else
         {

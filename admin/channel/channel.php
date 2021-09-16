@@ -9,18 +9,18 @@ $(document).ready(function() {
     $('.table-bordered').DataTable();
     //window.location.reload();
     //swal("Something went wrong","Channel not Updated","error");
-  $('.glyphicon-edit').on('click', function (e) {
+    $('.glyphicon-edit').on('click', function (e) {
       var $t = $(this),
-          target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
+      target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
 
-    $(target)
-      .find("input,textarea,select")
+      $(target)
+        .find("input,textarea,select")
         .val('')
         .end()
-      .find("input[type=checkbox], input[type=radio]")
+        .find("input[type=checkbox], input[type=radio]")
         .prop("checked", "")
         .end();
-  })
+    })
 
 
 });
