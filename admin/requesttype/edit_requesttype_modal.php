@@ -23,13 +23,13 @@ $get_id = core_decrypt(filter_input(INPUT_GET, 'id'));
 
   <input type="hidden" name="requesttypeId" id="requesttypeid" value="<?php echo core_encrypt($get_id); ?>">
   <label> requesttype Name : </label>
-  <input type="text" name="requesttypeName" class="form-control" value="<?php echo $requesttype_details_row['name']; ?>">
+  <input type="text" name="requesttypeName" class="form-control" required value="<?php echo $requesttype_details_row['name']; ?>">
   </br> 
   <label> requesttype Status : </label>
-  <input type="radio" name="requesttypeStatus" value="Y" <?php echo ($requesttype_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
-  <input type="radio" name="requesttypeStatus" value="N" <?php echo ($requesttype_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
+  <input type="radio" name="requesttypeStatus" value="Y" required <?php echo ($requesttype_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
+  <input type="radio" name="requesttypeStatus" value="N" required <?php echo ($requesttype_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
   </br>
-  <input type="button" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
+  <input type="submit" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
   <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
 </form>
 </div>
