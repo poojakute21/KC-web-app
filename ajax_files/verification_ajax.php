@@ -104,6 +104,36 @@ if($_POST['type'] == "updateverification"){
   
 }
 
+if($_POST['type'] == "updateScheduling"){
+  $parsedData = array();
+
+  $addData = $_POST['uData'];
+  parse_str($addData,$parsedData);
+  //print_r($parsedData);
+  $verificationId = core_decrypt($parsedData['verificationId']);
+  $approvedKits = $parsedData['approvedKits'];
+  $scheduledOn = date("Y-m-d", strtotime($parsedData['scheduledOn']));
+  $pickupPoint = $parsedData['pickupPoint'];
+  $progressStatus = $parsedData['progressStatus'];
+  $remarks = $parsedData['remarks'];
+
+ 
+ $query_details = "UPDATE ".request_details_delivery." SET approve_people_count='".$approvedKits."',delivery_scheduled_on='".$scheduledOn."',
+ delivery_pickup_point='".$pickupPoint."',request_status_id='".$progressStatus."',scheduling_remark='".$remarks."' 
+ WHERE request_id='".$verificationId."'";
+mysqli_query($conn, $query_details) or die(mysqli_error($conn));
+
+    if(mysqli_affected_rows($conn) > 0){
+      echo json_encode(array('result'=>'success'));
+      exit;
+
+    }else{
+      echo json_encode(array('result'=>'failed'));
+      exit;
+    }
+
+}
+
 //Request Details Status End Here
 
 ?>
