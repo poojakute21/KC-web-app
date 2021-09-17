@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2021 at 11:09 AM
+-- Generation Time: Sep 17, 2021 at 08:42 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -81,7 +81,7 @@ CREATE TABLE `request_delivery_details` (
   `request_status_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `approve_people_count` mediumint(9) NOT NULL,
-  `remark` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `scheduling_remark` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `delivery_pickup_point` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `delivery_scheduled_on` date NOT NULL,
   `delivered_to` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -96,8 +96,8 @@ CREATE TABLE `request_delivery_details` (
 -- Dumping data for table `request_delivery_details`
 --
 
-INSERT INTO `request_delivery_details` (`id`, `request_id`, `request_status_id`, `user_id`, `approve_people_count`, `remark`, `delivery_pickup_point`, `delivery_scheduled_on`, `delivered_to`, `delivery_location`, `delivered_to_contact`, `delivered_by`, `delivered_by_contact`, `delivered_on`) VALUES
-(1, 1, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', NULL),
+INSERT INTO `request_delivery_details` (`id`, `request_id`, `request_status_id`, `user_id`, `approve_people_count`, `scheduling_remark`, `delivery_pickup_point`, `delivery_scheduled_on`, `delivered_to`, `delivery_location`, `delivered_to_contact`, `delivered_by`, `delivered_by_contact`, `delivered_on`) VALUES
+(1, 1, 17, 0, 1, 'Test', 'Thane', '2021-09-18', '', '', '', '', '', NULL),
 (3, 2, 4, 0, 0, '', '', '0000-00-00', '', '', '', '', '', NULL),
 (4, 3, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
 (5, 4, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
@@ -182,7 +182,7 @@ CREATE TABLE `request_details` (
 --
 
 INSERT INTO `request_details` (`id`, `document_id`, `channel_id`, `name`, `address`, `contact_no`, `document_no`, `email`, `gender`, `no_of_people`, `is_beneficiary`, `aid_form`, `request_type`, `latitude`, `longitude`, `remark`, `created_at`, `updated_at`) VALUES
-(1, 0, 0, 'name', '1234 new mumabi near hanumand madndir', 'contact_no', 'document_no', 'email', '', 'no_of_people', 'Y', 1, '', 'latitude', 'longitude', 'remark', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1, 1, 2, 'Abhishek Uday Kute', '12 24 Padwal Nagar Thane-400604', '7575757575', '7585 8585 8585', 'poojakute21@gmail.com', '', '0', 'N', 2, '', 'latitude', 'longitude', 'remark', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 1, 2, 'Nitin Tendolkar', '', '9503572922', '1234 1234 1234', 'No', '', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (3, 1, 2, 'Hasnain', '', '7977128379', '2222 2222 2222', 'saqlainshiledar786@gmail.com', '', '3', 'Y', 2, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (4, 1, 2, 'Nabem khan', '', '8828522309', '', 'Govandi', '', '5', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -270,6 +270,7 @@ INSERT INTO `request_progress_statuses` (`id`, `name`, `progress`) VALUES
 CREATE TABLE `request_statuses` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `used_in` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` enum('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -277,23 +278,17 @@ CREATE TABLE `request_statuses` (
 -- Dumping data for table `request_statuses`
 --
 
-INSERT INTO `request_statuses` (`id`, `name`, `status`) VALUES
-(1, 'PROCESSING', 'Y'),
-(2, 'REJECTED', 'Y'),
-(3, 'ACCEPTED', 'Y'),
-(4, 'COMPLETED', 'Y'),
-(5, 'PENDING', 'Y'),
-(6, 'FRAUD', 'Y'),
-(7, 'INSUFFICIENT_DATA', 'Y'),
-(8, 'CLOSED', 'Y'),
-(9, 'PROCESSING', 'N'),
-(10, 'REJECTED', 'N'),
-(11, 'PROCESSINGs', 'Y'),
-(12, 'PROCESSING', 'Y'),
-(13, 'REJECTED', 'Y'),
-(14, 'test', 'Y'),
-(15, 'Test-req3', 'N'),
-(16, 'Test-req1', 'Y');
+INSERT INTO `request_statuses` (`id`, `name`, `used_in`, `status`) VALUES
+(1, 'DELIVERT PROCESSING', 'DEL FORM', 'Y'),
+(2, 'REJECTED', 'VERIF_FORM', 'Y'),
+(3, 'ACCEPTED', 'DUP_FORM', 'Y'),
+(4, 'VERIFICATION COMPLETED', 'VERIF_FORM', 'Y'),
+(5, 'PENDING', 'VERIF_FORM', 'Y'),
+(6, 'FRAUD', 'VERIF_FORM', 'Y'),
+(7, 'INSUFFICIENT_DATA', 'VERIF_FORM', 'Y'),
+(8, 'CLOSED', 'DEL_FORM', 'Y'),
+(17, 'SCHEDULING COMPLETED', 'SCHED_FORM', 'Y'),
+(18, 'SCHEDULING PENDING', 'SCHED_FORM', 'Y');
 
 -- --------------------------------------------------------
 
@@ -337,24 +332,7 @@ INSERT INTO `roles` (`id`, `name`, `status`) VALUES
 (1, 'OPS_ASSOCIATE', 'Y'),
 (2, 'OPS_ADMIN', 'Y'),
 (3, 'PLATFORM_ADMIN', 'Y'),
-(4, 'SUPER_ADMIN', 'Y'),
-(5, 'OPS_ASSOCIATE', 'Y'),
-(6, 'OPS_ASSOCIATE', 'N'),
-(7, 'OPS_ADMIN', 'N'),
-(8, 'OPS_ADMIN', 'N'),
-(9, 'OPS_ADMIN', 'Y'),
-(10, 'PLATFORM_ADMIN', 'N'),
-(11, 'PLATFORM_ADMIN', 'N'),
-(12, 'PLATFORM_ADMIN', 'N'),
-(13, 'OPS_ADMIN', 'N'),
-(14, 'OPS_ADMIN', 'N'),
-(15, 'OPS_ASSOCIATE', 'N'),
-(16, 'OPS_ADMIN', 'Y'),
-(17, 'OPS_ASSOCIATE', 'N'),
-(18, 'OPS_ASSOCIATE', 'N'),
-(19, 'PLATFORM_ADMIN', 'Y'),
-(20, 'OPS_ADMIN', 'N'),
-(21, 'Test-role2', 'N');
+(4, 'SUPER_ADMIN', 'Y');
 
 -- --------------------------------------------------------
 
@@ -392,7 +370,8 @@ INSERT INTO `users` (`id`, `role_id`, `added_by`, `name`, `email`, `email_verifi
 (10, 4, 1, 'pooja', 'pooja.kute@gmail.com', NULL, '$2y$10$N5wrV1VNzOfzCrNZq4GD5e4Ru4OczE0UedTP.giK1W0xmGIh/iQgW', '8778558961', 'test@67890pp', '2021-08-08', 'Y', NULL, '2021-08-26 11:31:27', '2021-08-26 11:31:27'),
 (11, 7, 1, 'Supriya', 'Supriya@gmail.com', NULL, '$2y$10$qtM7igbxgGgchJEIMLG...05Xin1t1k2HcIRjiBZ6ApDE11ofopby', '4526362536', 'Test 123', '1593-02-21', 'Y', NULL, '2021-09-14 11:36:40', '2021-09-14 11:36:40'),
 (12, 1, 0, 'Abhishek Kute', 'abhishek25@gmail.com', NULL, '2e60e42598a808e665cab041ec917dc9', '88796985692', 'Test', '0000-00-00', 'Y', NULL, '0000-00-00 00:00:00', NULL),
-(13, 2, 4, 'Pooja Uday Kute', 'pooja211094kute@gmail.com', NULL, '2e60e42598a808e665cab041ec917dc9', '9896989658', 'Test-12245-test 12563', '2021-09-16', 'N', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(13, 2, 4, 'Pooja Uday Kute', 'pooja211094kute@gmail.com', NULL, '2e60e42598a808e665cab041ec917dc9', '9896989658', 'Test-12245-test 12563', '2021-09-16', 'N', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, 1, 4, 'pooja', 'poojakute', NULL, '2e60e42598a808e665cab041ec917dc9', '89258965896589558', 'Test', '2021-09-09', 'Y', NULL, '0000-00-00 00:00:00', NULL);
 
 --
 -- Indexes for dumped tables
@@ -499,7 +478,7 @@ ALTER TABLE `request_progress_statuses`
 -- AUTO_INCREMENT for table `request_statuses`
 --
 ALTER TABLE `request_statuses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `request_types`
@@ -517,7 +496,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
