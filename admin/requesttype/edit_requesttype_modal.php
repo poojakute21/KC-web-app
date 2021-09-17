@@ -22,10 +22,10 @@ $get_id = core_decrypt(filter_input(INPUT_GET, 'id'));
   <form method="POST" id="editForm" name="editForm">
 
   <input type="hidden" name="requesttypeId" id="requesttypeid" value="<?php echo core_encrypt($get_id); ?>">
-  <label> requesttype Name : </label>
+  <label> Request Type Name : </label>
   <input type="text" name="requesttypeName" class="form-control" required value="<?php echo $requesttype_details_row['name']; ?>">
   </br> 
-  <label> requesttype Status : </label>
+  <label> Status : </label>
   <input type="radio" name="requesttypeStatus" value="Y" required <?php echo ($requesttype_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
   <input type="radio" name="requesttypeStatus" value="N" required <?php echo ($requesttype_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
   </br>

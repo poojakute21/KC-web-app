@@ -23,13 +23,13 @@ $get_id = core_decrypt(filter_input(INPUT_GET, 'id'));
 
   <input type="hidden" name="roleId" id="roleid" value="<?php echo core_encrypt($get_id); ?>">
   <label> Role Name : </label>
-  <input type="text" name="roleName" class="form-control" value="<?php echo $role_details_row['name']; ?>">
+  <input type="text" name="roleName" class="form-control" value="<?php echo $role_details_row['name']; ?>" required pattern="[A-Za-z0-9]+" maxlength="50" title="Max 50 Character and Numbers allowed!">
   </br> 
   <label> Status : </label>
-  <input type="radio" name="roleStatus" value="Y" <?php echo ($role_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
-  <input type="radio" name="roleStatus" value="N" <?php echo ($role_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
+  <input type="radio" name="roleStatus" value="Y" required <?php echo ($role_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
+  <input type="radio" name="roleStatus" value="N" required <?php echo ($role_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
   </br>
-  <input type="button" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
+  <input type="submit" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
   <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
 </form>
 </div>
