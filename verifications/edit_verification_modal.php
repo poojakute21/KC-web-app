@@ -1,6 +1,6 @@
 <?php 
 $get_id = core_decrypt(filter_input(INPUT_GET, 'id'));
-$verification_details = "select * from ".request_details." a INNER JOIN ".request_details_delivery." b
+$verification_details = "select a.*,b.request_status_id from ".request_details." a INNER JOIN ".request_details_delivery." b
 ON a.id= b.request_id WHERE a.id ='".$get_id."'";
 $verification_details_res = mysqli_query($conn,$verification_details) or die(mysqli_error($conn));
 $verification_details_row = mysqli_fetch_assoc($verification_details_res);
@@ -14,7 +14,7 @@ $verification_details_row = mysqli_fetch_assoc($verification_details_res);
     <b>Add Details</b>
 </div>
 <div class="panel-body">
- <form method="POST" id="addForm" name="addForm">
+ <form method="POST" id="addForm" name="addForm" >
  <input type="hidden" name="verificationId" id="verificationId" value="<?php echo core_encrypt($get_id); ?>">
   <label>Full Name : </label>
   <input type="text" name="fullName" class="form-control" value="<?php echo $verification_details_row['name']; ?>"></br>

@@ -1,6 +1,6 @@
 <?php
-$verification_details = "select * from ".request_details." a INNER JOIN ".request_details_delivery." b
-ON a.id= b.request_id WHERE request_status_id NOT IN (4)";
+$verification_details = "select a.*,b.request_status_id from ".request_details." a INNER JOIN ".request_details_delivery." b
+ON a.id= b.request_id WHERE request_status_id NOT IN (4) AND is_duplicated='N'";
 $verification_details_res = mysqli_query($conn,$verification_details) or die(mysqli_error($conn));
 
 ?>
@@ -33,12 +33,27 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
 
 </script>
 <div class="panel panel-primary">
+  <form method="POST" enctype="multipart/form-data" action="<?php echo WEBSITE . 'ajax_index.php?page=ajax_files/upload_bulkdata'; ?>" >
+  
+    <div class="panel-heading">
+      <b>Upload WhatsApp Data</b>
+    </div>
+    <div class="panel-body">
+
+      <label> Upload Bulk Data : </label><label> <a href="<?php echo WEBSITE . "sample_excel/bulk_request_details.csv"; ?>" >Download Format Here</a></label>
+      <div class="row">
+        <input type="file" name="whatsappFile" class="form-control">
+        <input type="submit" style="margin-left:2%; " name="whatsappFileSubmit" value="Submit" class="btn btn-success">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="panel panel-primary">
   <div class="panel-heading">
     <b>verification Details</b>
     <a class="menu-list" style="margin-left: 70%;" href="<?php echo WEBSITE . "main.php?page=verifications/add_verifications_modal";  ?>">
             Add Details</a>
   </div>
-  
   <div class="panel-body">
     <table class="table table-bordered dt-responsive nowrap dataTable no-footer">
         <thead>
@@ -87,5 +102,6 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
         </tbody>
         </table>
   </div>
+   
 </div>
 </html>

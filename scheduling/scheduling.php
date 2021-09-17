@@ -1,5 +1,5 @@
 <?php
-$verification_details = "select * from ".request_details." a INNER JOIN ".request_details_delivery." b
+$verification_details = "select a.*,b.request_status_id from ".request_details." a INNER JOIN ".request_details_delivery." b
 ON a.id= b.request_id WHERE request_status_id IN (4)";
 $verification_details_res = mysqli_query($conn,$verification_details) or die(mysqli_error($conn));
 
@@ -34,7 +34,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
 </script>
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <b>verification Details</b>
+    <b>Scheduling Delivery</b>
   </div>
   
   <div class="panel-body">
@@ -53,7 +53,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <th class="text-center">Aid Form</th>
             <th class="text-center">Request Type</th>
             <th class="text-center">Status</th>
-            <th class="text-center">Edit</th>
+            <th class="text-center">Schedule</th>
             <!-- <th class="text-center">Delete</th> -->
           </tr>
         </thead>
@@ -76,7 +76,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
             <?php $verification_id = core_encrypt($verification_details_row['id']); ?>
             <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "ajax_index.php?page=scheduling/edit_scheduling_modal&id=" . $verification_id;  ?>" data-toggle="modal" data-target="#editvolunteerModal">
-            Scheduling</a>
+            Schedule</a>
             </td>
           </tr>
         <?php 

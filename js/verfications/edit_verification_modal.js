@@ -2,6 +2,7 @@ $(document).ready(function(){
 
     $("#submitEdit").click(function(){
         var formData = $("#addForm").serialize();
+        alert(formData);
         $.ajax({
             url : WEBSITE + 'ajax_index.php?page=ajax_files/verification_ajax',
             type: 'POST',
