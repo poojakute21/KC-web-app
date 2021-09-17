@@ -1,6 +1,53 @@
 $(document).ready(function(){
 
-    $("#submitEdit").click(function(){
+    // $("#submitEdit").click(function(){
+    $("#editForm").submit(function(event){
+
+        $("#editForm input[name='roleName']").val($("#editForm input[name='roleName']").val().trim());
+        var emptyFields = [];
+        // check empty fields
+        if ($("#editForm input[name='roleName']").val().trim().length === 0) {
+            emptyFields.push("Role Name");
+        }
+
+        var roleStatus_typeData = [];
+        $.each($("#editForm input[name='roleStatus']:checked"), function(){
+            roleStatus_typeData.push($(this).val().trim());
+        });
+
+        if (roleStatus_typeData.length === 0) {
+            emptyFields.push("Status");
+        }
+
+        // console.log(emptyFields);
+        if(emptyFields.length === 0)
+        {
+            // all good nothing empty then fetch form data
+        }
+        else
+        {
+            // var alertText = "Please fill up following Fields:";
+            var alertText = "";
+            $( emptyFields ).each(function( index ) {
+                alertText += "\n-"+emptyFields[index]+"";
+            });
+
+            // alert(alertText);
+
+            swal({
+                title: "Failed: Please check:",
+                // text: "Please Check fields again!",
+                text: alertText,
+                type: "warning",
+                icon: 'warning',
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ok",
+                closeOnConfirm: true
+            });
+
+            return;
+        }
+        
         var formData = $("#editForm").serialize();
         $.ajax({
             url : WEBSITE + 'ajax_index.php?page=ajax_files/admin_ajax',

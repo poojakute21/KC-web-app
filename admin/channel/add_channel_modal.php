@@ -11,14 +11,14 @@
 
 <div class="modal-body">
   <form method="POST" id="addForm" name="addForm">
-  <label> Channel Name : </label>
-  <input type="text" name="channelName" class="form-control">
-  </br> 
-  <label> Status : </label>
-  <input type="radio" name="channelStatus" value="Y" > Active </label>
-  <input type="radio" name="channelStatus" value="N" > Inactive </label>
-  </br>
-  <input type="button" name="submitAdd" id="submitAdd" value="Add" class="btn btn-danger">
-  <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
-</form>
+    <label> Channel Name : </label>
+    <input type="text" name="channelName" class="form-control" required pattern="[A-Za-z0-9]+" maxlength="50" title="Max 50 Character and Numbers allowed!">
+    </br>
+    <label> Status : </label>
+    <input type="radio" name="channelStatus" value="Y" required> Active </label>
+    <input type="radio" name="channelStatus" value="N" required> Inactive </label>
+    </br>
+    <input type="submit" name="submitAdd" id="submitAdd" value="Add" class="btn btn-danger">
+    <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
+  </form>
 </div>

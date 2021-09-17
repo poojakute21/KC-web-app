@@ -21,15 +21,15 @@ $get_id = core_decrypt(filter_input(INPUT_GET, 'id'));
   ?>
   <form method="POST" id="editForm" name="editForm">
 
-  <input type="hidden" name="channelId" id="channelid" value="<?php echo core_encrypt($get_id); ?>">
-  <label> Channel Name : </label>
-  <input type="text" name="channelName" class="form-control" value="<?php echo $channel_details_row['name']; ?>">
-  </br> 
-  <label> Status : </label>
-  <input type="radio" name="channelStatus" value="Y" <?php echo ($channel_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
-  <input type="radio" name="channelStatus" value="N" <?php echo ($channel_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
-  </br>
-  <input type="button" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
-  <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
-</form>
+      <input type="hidden" name="channelId" id="channelid" value="<?php echo core_encrypt($get_id); ?>">
+      <label> Channel Name : </label>
+      <input type="text" name="channelName" class="form-control" value="<?php echo $channel_details_row['name']; ?>" required pattern="[A-Za-z0-9]+" maxlength="50" title="Max 50 Character and Numbers allowed!">
+      </br> 
+      <label> Status : </label>
+      <input type="radio" name="channelStatus" value="Y" required <?php echo ($channel_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
+      <input type="radio" name="channelStatus" value="N" required <?php echo ($channel_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
+      </br>
+      <input type="submit" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
+      <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
+  </form>
 </div>

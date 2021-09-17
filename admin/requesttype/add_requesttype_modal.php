@@ -12,13 +12,13 @@
 <div class="modal-body">
   <form method="POST" id="addForm" name="addForm">
   <label> Request Type Name : </label>
-  <input type="text" name="requesttypeName" class="form-control">
+  <input type="text" name="requesttypeName" class="form-control" required>
   </br> 
   <label> Status : </label>
-  <input type="radio" name="requesttypeStatus" value="Y" > Active </label>
-  <input type="radio" name="requesttypeStatus" value="N" > Inactive </label>
+  <input type="radio" name="requesttypeStatus" value="Y" required> Active </label>
+  <input type="radio" name="requesttypeStatus" value="N" required> Inactive </label>
   </br>
-  <input type="button" name="submitAdd" id="submitAdd" value="Add" class="btn btn-danger">
+  <input type="submit" name="submitAdd" id="submitAdd" value="Add" class="btn btn-danger">
   <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
 </form>
 </div>

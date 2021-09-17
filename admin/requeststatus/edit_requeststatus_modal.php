@@ -23,13 +23,13 @@ $get_id = core_decrypt(filter_input(INPUT_GET, 'id'));
 
   <input type="hidden" name="requeststatusId" id="requeststatusid" value="<?php echo core_encrypt($get_id); ?>">
   <label> Request Status Name : </label>
-  <input type="text" name="requeststatusName" class="form-control" value="<?php echo $requeststatus_details_row['name']; ?>">
+  <input type="text" name="requeststatusName" class="form-control" value="<?php echo $requeststatus_details_row['name']; ?>" required pattern="[A-Za-z0-9]+" maxlength="50" title="Max 50 Character and Numbers allowed!">
   </br> 
   <label> Status : </label>
-  <input type="radio" name="requeststatusStatus" value="Y" <?php echo ($requeststatus_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
-  <input type="radio" name="requeststatusStatus" value="N" <?php echo ($requeststatus_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
+  <input type="radio" name="requeststatusStatus" value="Y" required <?php echo ($requeststatus_details_row['status'] == "Y") ? 'checked' : '' ; ?> > Active </label>
+  <input type="radio" name="requeststatusStatus" value="N" required <?php echo ($requeststatus_details_row['status'] == "N") ? 'checked' : '' ; ?> > Inactive </label>
   </br>
-  <input type="button" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
+  <input type="submit" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
   <input type="button" value="Cancel" data-dismiss="modal" class="btn btn-danger">
 </form>
 </div>
