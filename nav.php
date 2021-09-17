@@ -12,7 +12,7 @@
         <a class="nav-link" href="<?php echo WEBSITE . "main.php?page=verifications/verifications"; ?>">Verifications</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Scheduling</a>
+        <a class="nav-link" href="<?php echo WEBSITE . "main.php?page=scheduling/scheduling"; ?>">Scheduling</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Delivery</a>
@@ -30,10 +30,13 @@
           <a class="dropdown-item" href="<?php echo WEBSITE . "main.php?page=admin/volunteer/volunteer"; ?>">Volunteers</a>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">User Guide</a>
+      </li>
     </ul>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item" style="float:right;">
-        <a class="nav-link" href="login/logout.php">Logout</a>
+       <a class="nav-link" href="login/logout.php">Logout</a>
       </li>
     </ul>
   </div>

@@ -8,13 +8,14 @@ $verification_details_row = mysqli_fetch_assoc($verification_details_res);
 <script type="text/javascript">
   var WEBSITE = "<?php echo WEBSITE; ?>";
 </script>
-<script type="text/javascript" src="<?php echo WEBSITE . 'js/verfications/add_verification_modal.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo WEBSITE . 'js/verfications/edit_verification_modal.js'; ?>"></script>
 <div class="panel panel-primary">
   <div class="panel-heading">
     <b>Add Details</b>
 </div>
 <div class="panel-body">
  <form method="POST" id="addForm" name="addForm">
+ <input type="hidden" name="verificationId" id="verificationId" value="<?php echo core_encrypt($get_id); ?>">
   <label>Full Name : </label>
   <input type="text" name="fullName" class="form-control" value="<?php echo $verification_details_row['name']; ?>"></br>
   <label> Address : </label>
@@ -66,12 +67,12 @@ $verification_details_row = mysqli_fetch_assoc($verification_details_res);
   <select name="progressStatus"  class="form-control">
     <option value="">Please Select</option>
   <?php 
-    $sql_progress_status = "select name,id from ".request_status." WHERE status='Y'";
+    $sql_progress_status = "select name,id from ".request_status." WHERE status='Y' AND used_in='VERIF_FORM'";
     $result_progress_status = mysqli_query($conn,$sql_progress_status) or die(mysqli_error($conn));
     while($row_progress_status = mysqli_fetch_array($result_progress_status)){
 
   ?>
-    <option value=<?php echo $row_progress_status['id']; ?>><?php echo ($row_progress_status['name']); ?></option>
+    <option value=<?php echo $row_progress_status['id']; ?> <?php echo ($row_progress_status['id'] == $verification_details_row['request_status_id']) ? 'selected' : '' ; ?>><?php echo ($row_progress_status['name']); ?></option>
   <?php
     }
   ?>

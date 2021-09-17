@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
-    $("#submitAdd").click(function(){
+    $("#submitEdit").click(function(){
         var formData = $("#addForm").serialize();
         $.ajax({
             url : WEBSITE + 'ajax_index.php?page=ajax_files/verification_ajax',
             type: 'POST',
-            data:{'type' : 'adddetails' , 'aData' : formData},
+            data:{'type' : 'updateverification' , 'uData' : formData},
             success:function(response){
                 console.log(response);
                 //window.location.reload();
@@ -15,7 +15,7 @@ $(document).ready(function(){
                 if(resObj.result == "success"){
                     swal({
                         title: "Success",
-                        text: "Details Added Successfully",
+                        text: "Details Updated Successfully",
                         type: "success",
                         confirmButtonColor: "#DD6B55",
                         confirmButtonText: "Ok",
@@ -32,7 +32,7 @@ $(document).ready(function(){
                     location.reload();
                 
                 }else{
-                    swal("Something went wrong","Details not Added","error");
+                    swal("Something went wrong","Details not Updated","error");
                     window.location.reload();
                 }
                 

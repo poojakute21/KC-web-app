@@ -69,20 +69,30 @@ if($_POST['type'] == "updateverification"){
   
     $addData = $_POST['uData'];
     parse_str($addData,$parsedData);
-     $verificationId = core_decrypt($parsedData['verificationId']);
-     $verificationName = $parsedData['verificationName'];
-     $verificationEmail = $parsedData['verificationEmail'];
-     $verificationContact = $parsedData['verificationContact'];
-     $verificationBirthdate = date("Y-m-d", strtotime($parsedData['verificationBirthdate']));
-     $verificationAddress = $parsedData['verificationAddress'];
-     $verificationRole = $parsedData['verificationRole'];
-     $verificationStatus = $parsedData['verificationStatus'];
-     $verificationPassword = md5('khaana@123');
-     $addedby = $_SESSION['roleid'];
-    $role_details = "UPDATE ".verifications_details." SET `role_id` ='$verificationRole',`name` = '$verificationName',`email`='$verificationEmail',`contact_no`='$verificationContact',`address`='$verificationAddress',`date_of_birth`='$verificationBirthdate',`status` = '$verificationStatus',`updated_at`='now()' where `id` = '$verificationId'";
+    $verificationId = core_decrypt($parsedData['verificationId']);
+    $fullName = $parsedData['fullName'];
+    $verificationAddress = $parsedData['verificationAddress'];
+    $emailAddress = $parsedData['emailAddress'];
+    $contactNumber = $parsedData['contactNumber'];
+    $documentType = $parsedData['documentType'];
+    $documentNumber = $parsedData['documentNumber'];
+    $noofPeople = $parsedData['noofPeople'];
+    $isBeneficiary = $parsedData['isBeneficiary'];
+    $aidform = $parsedData['aidform'];
+    $progressStatus= $parsedData['progressStatus'];
+    $userid=  $_SESSION['userid'];
+    
+  
+  $role_details = "UPDATE ".request_details." SET document_id='".$documentType."',name='".$fullName."',
+  address='".$verificationAddress."',contact_no='".$contactNumber."',document_no='".$documentNumber."',
+  email='".$emailAddress."',no_of_people='".$noofPeople."',is_beneficiary='".$isBeneficiary."',
+  aid_form='".$aidform."',updated_at='now()' where `id` = '".$verificationId."'";
     
    mysqli_query($conn,$role_details) or die(mysqli_error($conn));
   
+   $query_details = "UPDATE ".request_details_delivery." SET request_status_id='".$progressStatus."' WHERE request_id='".$verificationId."'";
+    mysqli_query($conn, $query_details) or die(mysqli_error($conn));
+
       if(mysqli_affected_rows($conn) > 0){
         echo json_encode(array('result'=>'success'));
         exit;

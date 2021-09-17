@@ -1,7 +1,7 @@
 <script type="text/javascript">
   var WEBSITE = "<?php echo WEBSITE; ?>";
   $(document).ready(function () {
-    $('#example').datepicker(); 
+    $('#volunteerBirthdate').datepicker(); 
   });
 </script>
 <script type="text/javascript" src="<?php echo WEBSITE . 'js/admin/add_volunteer_modal.js'; ?>"></script>
@@ -21,7 +21,7 @@
   <label> Contact No : </label>
   <input type="text" name="volunteerContact" class="form-control"></br>
   <label> Date of Birth : </label>
-  <input placeholder="Select date" name="volunteerBirthdate" type="text" id="example" class="form-control">
+  <input placeholder="Select date" name="volunteerBirthdate" type="text" id="volunteerBirthdate" class="form-control">
   <label> Address : </label>
   <textarea name="volunteerAddress" class="form-control"></textarea></br>
   <label> Role : </label>
