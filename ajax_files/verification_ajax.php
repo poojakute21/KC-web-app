@@ -1,6 +1,6 @@
 <?php
 //Request Details Start Here
-if($_POST['type'] == "addvolunteer"){ //if add submit
+if($_POST['type'] == "adddetails"){ //if add submit
 
   $parsedData = array();
 
@@ -8,18 +8,26 @@ if($_POST['type'] == "addvolunteer"){ //if add submit
   //print_r($addData);
   parse_str($addData,$parsedData);
   
-  $volunteerName = $parsedData['volunteerName'];
-  $volunteerEmail = $parsedData['volunteerEmail'];
-  $volunteerContact = $parsedData['volunteerContact'];
-  $volunteerBirthdate = date("Y-m-d", strtotime($parsedData['volunteerBirthdate']));
-  $volunteerAddress = $parsedData['volunteerAddress'];
-  $volunteerRole = $parsedData['volunteerRole'];
-  $volunteerStatus = $parsedData['volunteerStatus'];
-  $volunteerPassword = md5('khaana@123');
-  $addedby = $_SESSION['roleid'];
+  $fullName = $parsedData['fullName'];
+  $verificationAddress = $parsedData['verificationAddress'];
+  $emailAddress = $parsedData['emailAddress'];
+  $contactNumber = $parsedData['contactNumber'];
+  $channelType = "4";
+  $documentType = $parsedData['documentType'];
+  $documentNumber = $parsedData['documentNumber'];
+  $noofPeople = $parsedData['noofPeople'];
+  $isBeneficiary = $parsedData['isBeneficiary'];
+  $aidform = $parsedData['aidform'];
   
+  if($noofPeople > 20){
+    $requestType = "bulk";
+  }else{
+      $requestType ="single";
+  }
   
-  $check_query = mysqli_query($conn, "SELECT name from ".volunteers_details." where email = '". $volunteerEmail."'") or die("mysql Error Occured");
+  $userid=  $_SESSION['userid'];
+  $requestStatusid = "5";
+  $check_query = mysqli_query($conn, "SELECT name from ".request_details." where document_no = '". $documentNumber."'") or die("mysql Error Occured");
 
   if(mysqli_num_rows($check_query) > 0){
 
@@ -28,12 +36,21 @@ if($_POST['type'] == "addvolunteer"){ //if add submit
 
   }else{
 
-   $query = "INSERT INTO ".volunteers_details." (`role_id`, `added_by`, `name`, `email`,`password`, `contact_no`, `address`, `date_of_birth`, `status`, `created_at`) VALUES ('$volunteerRole','$addedby','$volunteerName','$volunteerEmail','$volunteerPassword','$volunteerContact','$volunteerAddress','$volunteerBirthdate','$volunteerStatus','now()')";
-
+   $query = "INSERT INTO ".request_details." (`document_id`, `channel_id`, `name`, `address`, 
+   `contact_no`, `document_no`, `email`, `no_of_people`, `is_beneficiary`, `aid_form`, 
+   `request_type`,`created_at`)
+    VALUES ('$documentType','$channelType','$fullName','$verificationAddress','$contactNumber',
+    '$documentNumber','$emailAddress','$noofPeople','$isBeneficiary','$aidform','$requestType',
+    'now()')";
     mysqli_query($conn, $query) or die(mysqli_error($conn));
+    $last_id = mysqli_insert_id($conn);
+
+    $query_details = "INSERT INTO ".request_details_delivery." (`request_id`,`request_status_id`,`user_id`) 
+    VALUES ('$last_id','$requestStatusid','$userid')";
+    mysqli_query($conn, $query_details) or die(mysqli_error($conn));
 
     if(mysqli_affected_rows($conn) > 0){
-
+        
       echo json_encode(array('result'=>'success'));
       exit;
 
@@ -47,22 +64,22 @@ if($_POST['type'] == "addvolunteer"){ //if add submit
 
 }
 
-if($_POST['type'] == "updatevolunteer"){
+if($_POST['type'] == "updateverification"){
     $parsedData = array();
   
     $addData = $_POST['uData'];
     parse_str($addData,$parsedData);
-     $volunteerId = core_decrypt($parsedData['volunteerId']);
-     $volunteerName = $parsedData['volunteerName'];
-     $volunteerEmail = $parsedData['volunteerEmail'];
-     $volunteerContact = $parsedData['volunteerContact'];
-     $volunteerBirthdate = date("Y-m-d", strtotime($parsedData['volunteerBirthdate']));
-     $volunteerAddress = $parsedData['volunteerAddress'];
-     $volunteerRole = $parsedData['volunteerRole'];
-     $volunteerStatus = $parsedData['volunteerStatus'];
-     $volunteerPassword = md5('khaana@123');
+     $verificationId = core_decrypt($parsedData['verificationId']);
+     $verificationName = $parsedData['verificationName'];
+     $verificationEmail = $parsedData['verificationEmail'];
+     $verificationContact = $parsedData['verificationContact'];
+     $verificationBirthdate = date("Y-m-d", strtotime($parsedData['verificationBirthdate']));
+     $verificationAddress = $parsedData['verificationAddress'];
+     $verificationRole = $parsedData['verificationRole'];
+     $verificationStatus = $parsedData['verificationStatus'];
+     $verificationPassword = md5('khaana@123');
      $addedby = $_SESSION['roleid'];
-    $role_details = "UPDATE ".volunteers_details." SET `role_id` ='$volunteerRole',`name` = '$volunteerName',`email`='$volunteerEmail',`contact_no`='$volunteerContact',`address`='$volunteerAddress',`date_of_birth`='$volunteerBirthdate',`status` = '$volunteerStatus',`updated_at`='now()' where `id` = '$volunteerId'";
+    $role_details = "UPDATE ".verifications_details." SET `role_id` ='$verificationRole',`name` = '$verificationName',`email`='$verificationEmail',`contact_no`='$verificationContact',`address`='$verificationAddress',`date_of_birth`='$verificationBirthdate',`status` = '$verificationStatus',`updated_at`='now()' where `id` = '$verificationId'";
     
    mysqli_query($conn,$role_details) or die(mysqli_error($conn));
   

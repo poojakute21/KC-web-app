@@ -77,7 +77,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <td class="text-center"><?php echo strtoupper($verification_details_row['request_type']); ?></td>
             <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
             <?php $verification_id = core_encrypt($verification_details_row['id']); ?>
-            <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "ajax_index.php?page=verifications/edit_verification_modal&id=" . $verification_id;  ?>" data-toggle="modal" data-target="#editverificationModal">
+            <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "main.php?page=verifications/edit_verification_modal&id=" . $verification_id;  ?>">
             <span class="glyphicon glyphicon-edit"></span></a>
             </td>
           </tr>
@@ -89,17 +89,3 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
   </div>
 </div>
 </html>
-<!-- add verification -->
-<div id="addverificationModal" class="modal fade">
-    <div class="modal-dialog modal-md" style="margin-top:18%;">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
-<!-- edit verification -->
-<div id="editverificationModal" class="modal fade">
-    <div class="modal-dialog modal-md" style="margin-top:18%;">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>

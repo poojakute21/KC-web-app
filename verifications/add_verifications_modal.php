@@ -16,20 +16,7 @@
   <input type="text" name="emailAddress" class="form-control"></br>
   <label> Contact No : </label>
   <input type="text" name="contactNumber" class="form-control"></br>
-  <label> Channel Type : </label>
-  <select name="channelType"  class="form-control">
-    <option value="">Please Select</option>
-  <?php 
-    $sql_channel = "select name,id from ".channel_type." WHERE status='Y'";
-    $result_channel = mysqli_query($conn,$sql_channel) or die(mysqli_error($conn));
-    while($row_channel = mysqli_fetch_array($result_channel)){
 
-  ?>
-    <option value=<?php echo $row_channel['id']; ?>><?php echo ($row_channel['name']); ?></option>
-  <?php
-    }
-  ?>
-  </select></br>
   <label> Document Type : </label>
   <select name="documentType"  class="form-control">
     <option value="">Please Select</option>
@@ -68,26 +55,20 @@
     }
   ?>
   </select></br>
-  <label> Request Type: </label>
-  <select name="requestType"  class="form-control">
-    <option value="">Please Select</option>
-    <option value="single">SINGLE</option>
-    <option value="buld">BULK</option>
-  </select></br>
   <label> Status : </label>
-  <select name="progressStatus"  class="form-control">
+  <!-- <select name="progressStatus"  class="form-control">
     <option value="">Please Select</option>
   <?php 
-    $sql_progress_status = "select name,id from ".request_status." WHERE status='Y'";
-    $result_progress_status = mysqli_query($conn,$sql_progress_status) or die(mysqli_error($conn));
-    while($row_progress_status = mysqli_fetch_array($result_progress_status)){
+    // $sql_progress_status = "select name,id from ".request_status." WHERE status='Y'";
+    // $result_progress_status = mysqli_query($conn,$sql_progress_status) or die(mysqli_error($conn));
+    // while($row_progress_status = mysqli_fetch_array($result_progress_status)){
 
   ?>
-    <option value=<?php echo $row_progress_status['id']; ?>><?php echo get_requesttype($row_progress_status['name']); ?></option>
+    <option value=<?php // echo $row_progress_status['id']; ?>><?php //echo ($row_progress_status['name']); ?></option>
   <?php
-    }
+    //}
   ?>
-  </select></br>
+  </select></br> -->
   <input type="button" name="submitAdd" id="submitAdd" value="Add" class="btn btn-danger">
   <a href="<?php echo WEBSITE . "main.php?page=verifications/verifications";  ?>">
             <input type="button" value="Cancel"  class="btn btn-danger"></a>

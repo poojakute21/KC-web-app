@@ -27,6 +27,7 @@
             $_SESSION['useremail'] = $username;
             $_SESSION['roleid'] = $row['role_id'];
             $_SESSION['username'] = $row['name'];
+            $_SESSION['userid'] = $row['id'];
             // Redirect to user dashboard page
             header("Location: ../main.php");
         } else {
