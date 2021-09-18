@@ -1,5 +1,5 @@
 <?php
-$verification_details = "select a.id,b.request_status_id from ".request_details." a INNER JOIN ".request_details_delivery." b
+$verification_details = "select a.*,b.request_status_id,b.approve_people_count from ".request_details." a INNER JOIN ".request_details_delivery." b
 ON a.id= b.request_id WHERE request_status_id IN (1,9,10)";
 $verification_details_res = mysqli_query($conn,$verification_details) or die(mysqli_error($conn));
 

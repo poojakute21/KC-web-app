@@ -58,6 +58,7 @@ if($_POST['type'] == "adddetails"){ //if add submit
   $isDuplicated = "N";
   if(mysqli_num_rows($check_query) > 0){
     $isDuplicated = "Y";
+    $progressStatus = "11";
   }
    $query = "INSERT INTO ".request_details." (`document_id`, `channel_id`, `name`, `address`, 
    `contact_no`, `document_no`, `email`, `no_of_people`, `is_beneficiary`, `aid_form`,`is_duplicated`, 
@@ -89,7 +90,7 @@ if($_POST['type'] == "adddetails"){ //if add submit
 
 if($_POST['type'] == "updateverification"){
     $parsedData = array();
-  print_r($_FILES);
+  
     $addData = $_POST['uData'];
     parse_str($addData,$parsedData);
     $verificationId = core_decrypt($parsedData['verificationId']);
@@ -104,64 +105,13 @@ if($_POST['type'] == "updateverification"){
     $aidform = $parsedData['aidform'];
     $progressStatus= $parsedData['progressStatus'];
     $userid=  $_SESSION['userid'];
-    $request_type=$parsedData['requestType'];
-  print_r($parsedData);
     $check_query = mysqli_query($conn, "SELECT name from ".request_details." where document_no = '". $documentNumber."'") or die("mysql Error Occured");
     $isDuplicated = "N";
     if(mysqli_num_rows($check_query) > 0){
       $isDuplicated = "Y";
       $progressStatus = "11";
     }
-    if($request_type == 'bulk') {
-      echo "<pre>";
-      print_r($_FILES);
-      echo "</pre>";
-      exit;
-      $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
-      if(!empty($_FILES['file']['name']) && in_array($_FILES['file']['type'], $csvMimes)){
-      
-        // If the file is uploaded
-        if(is_uploaded_file($_FILES['file']['tmp_name'])){
-            
-            // Open uploaded CSV file with read-only mode
-            $csvFile = fopen($_FILES['file']['tmp_name'], 'r');
-            
-            // Skip the first line
-            fgetcsv($csvFile);
-            
-            // Parse data from CSV file line by line
-            while(($line = fgetcsv($csvFile)) !== FALSE){
-                // Get row data
-                $name   = $line[0];
-                $email  = $line[1];
-                $phone  = $line[2];
-                $status = $line[3];
-                
-                // Check whether member already exists in the database with the same email
-                $prevQuery = "SELECT id FROM members WHERE email = '".$line[1]."'";
-                $prevResult = $db->query($prevQuery);
-                
-                if($prevResult->num_rows > 0){
-                    // Update member data in the database
-                    $db->query("UPDATE members SET name = '".$name."', phone = '".$phone."', status = '".$status."', modified = NOW() WHERE email = '".$email."'");
-                }else{
-                    // Insert member data in the database
-                    $db->query("INSERT INTO members (name, email, phone, created, modified, status) VALUES ('".$name."', '".$email."', '".$phone."', NOW(), NOW(), '".$status."')");
-                }
-            }
-            
-            // Close opened CSV file
-            fclose($csvFile);
-            
-            $qstring = '?status=succ';
-        }else{
-            $qstring = '?status=err';
-        }
-      }else{
-          $qstring = '?status=invalid_file';
-      }
-    }
-    exit;
+   
     $role_details = "UPDATE ".request_details." SET document_id='".$documentType."',name='".$fullName."',address='".$verificationAddress."',contact_no='".$contactNumber."',document_no='".$documentNumber."',
     email='".$emailAddress."',no_of_people='".$noofPeople."',is_beneficiary='".$isBeneficiary."',
     aid_form='".$aidform."',is_duplicated='".$isDuplicated."', updated_at='now()' where `id` = '".$verificationId."'";

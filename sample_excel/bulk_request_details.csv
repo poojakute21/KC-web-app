@@ -1,6 +1,4 @@
-document_id,name,address,contact_no,document_no,email,gender,no_of_people,latitude,longitude,remark
-1,Pooja Kute,Thane 400601,8785962596,2525 2562 2563,test@gmail.com,,2,,,Test
-1,Shobha Kute,Thane 400601,8785962596,2526 2562 2563,test@gmail.com,,20,,,Test
-1,Uday Kute,Thane 400601,8785962596,2527 2562 2563,test@gmail.com,,30,,,Test
-1,Supriya Kute,Thane 400602,8785962596,2528 2562 2563,test@gmail.com,,5,,,Test
-1,Abhishek Kute,Thane 400603,8785962596,2529 2562 2563,test@gmail.com,,2,,,Test
+document_id,name,address,contact_no,document_no,email,no_of_people,is_beneficiary,aid_form
+1,Pooja Kute,Thane 400604,8785968596,1212 1212 1212,test@gmail.com,2,Y,1
+1,Pooja Kute,Thane 400604,4526235232,1213 1212 1212,test@gmail.com,25,Y,2
+1,Pooja Kute,Thane 400604,7859659659,1214 1212 1212,test@gmail.com,3,Y,1

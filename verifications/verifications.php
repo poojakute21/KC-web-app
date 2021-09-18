@@ -40,7 +40,7 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
     </div>
     <div class="panel-body">
 
-      <label> Upload Bulk Data : </label><label> <a href="<?php echo WEBSITE . "sample_excel/bulk_request_details.csv"; ?>" >Download Format Here</a></label>
+      <label> Upload Whatsapp Bot Data : </label><label> <a href="<?php echo WEBSITE . "sample_excel/bulk_request_details.csv"; ?>" >Download Format Here</a></label>
       <div class="row">
         <input type="file" name="whatsappFile" class="form-control">
         <input type="submit" style="margin-left:2%; " name="whatsappFileSubmit" value="Submit" class="btn btn-success">
@@ -54,6 +54,20 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
     <a class="menu-list" style="margin-left: 70%;" href="<?php echo WEBSITE . "main.php?page=verifications/add_verifications_modal";  ?>">
             Add Details</a>
   </div>
+  <div class="form-group" style="margin-left:20px;margin-top:20px;">
+       <span>
+           <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>"> Pending
+       </span>
+       <span>
+           <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>"> In Progress
+       </span>
+       <span style="padding-left:20px;">
+           <img src="<?php echo WEBSITE . 'images/g.png'; ?>"> Completed
+       </span>
+       <span style="padding-left:20px;">
+           <img src="<?php echo WEBSITE . 'images/r.png'; ?>"> Rejected
+       </span>
+   </div>  
   <div class="panel-body">
     <table class="table table-bordered dt-responsive nowrap dataTable no-footer">
         <thead>
@@ -70,6 +84,9 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <th class="text-center">Aid Form</th>
             <th class="text-center">Request Type</th>
             <th class="text-center">Status</th>
+            <th class="text-center">Verification</th>
+            <th class="text-center">Scheduling</th>
+            <th class="text-center">Delivery</th>
             <th class="text-center">Edit</th>
             <!-- <th class="text-center">Delete</th> -->
           </tr>
@@ -91,6 +108,15 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <td class="text-center"><?php echo get_requesttype($verification_details_row['aid_form']); ?></td>
             <td class="text-center"><?php echo strtoupper($verification_details_row['request_type']); ?></td>
             <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
+            <td class="text-center"><?php 
+            echo get_requeststatus($verification_details_row['request_status_id']); 
+              if($verification_details_row['request_status_id'] == 5){
+                
+              }
+            ?>
+              
+            <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
+            <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
             <?php $verification_id = core_encrypt($verification_details_row['id']); ?>
             <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "main.php?page=verifications/edit_verification_modal&id=" . $verification_id;  ?>">
             <span class="glyphicon glyphicon-edit"></span></a>
@@ -102,6 +128,6 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
         </tbody>
         </table>
   </div>
-   
+ 
 </div>
 </html>
