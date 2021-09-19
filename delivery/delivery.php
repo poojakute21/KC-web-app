@@ -36,7 +36,20 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
   <div class="panel-heading">
     <b>Delivery Details</b>
   </div>
-  
+  <div class="form-group" style="margin-left:20px;margin-top:20px;">
+       <span>
+           <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>"> Pending
+       </span>
+       <span>
+           <img src="<?php echo WEBSITE . 'images/gy.png'; ?>"> In Progress
+       </span>
+       <span style="padding-left:20px;">
+           <img src="<?php echo WEBSITE . 'images/g.png'; ?>"> Completed
+       </span>
+       <span style="padding-left:20px;">
+           <img src="<?php echo WEBSITE . 'images/r.png'; ?>"> Rejected
+       </span>
+  </div>
   <div class="panel-body">
     <table class="table table-bordered dt-responsive nowrap dataTable no-footer">
         <thead>
@@ -53,6 +66,9 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <th class="text-center">Aid Form</th>
             <th class="text-center">Request Type</th>
             <th class="text-center">Status</th>
+            <th class="text-center">Verification</th>
+            <th class="text-center">Scheduling</th>
+            <th class="text-center">Delivery</th>
             <th class="text-center">Delivery</th>
             <!-- <th class="text-center">Delete</th> -->
           </tr>
@@ -74,14 +90,64 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <td class="text-center"><?php echo get_requesttype($verification_details_row['aid_form']); ?></td>
             <td class="text-center"><?php echo strtoupper($verification_details_row['request_type']); ?></td>
             <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
+            <td class="text-center"><?php 
+             if($verification_details_row['request_status_id'] == 5):
+                ?>
+                <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>" border="0" />
+              <?php
+              elseif($verification_details_row['request_status_id'] == 4 or $verification_details_row['request_status_id'] == 10 ):
+                ?>
+                <img src="<?php echo WEBSITE . 'images/g.png'; ?>" border="0" />
+                <?php
+              else:
+                ?>
+                 <img src="<?php echo WEBSITE . 'images/gy.png'; ?>" border="0" />
+              <?php endif; ?>
+              
+            </td>
+            <td class="text-center"><?php 
+             if($verification_details_row['request_status_id'] == 5 or $verification_details_row['request_status_id'] == 4 ):
+             
+                ?>
+                <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>" border="0" />
+              <?php
+              elseif($verification_details_row['request_status_id'] == 9 or $verification_details_row['request_status_id'] == 10 ):
+               
+               ?>
+                <img src="<?php echo WEBSITE . 'images/g.png'; ?>" border="0" />
+                <?php
+              else:
+                
+                ?>
+                 <img src="<?php echo WEBSITE . 'images/gy.png'; ?>" border="0" />
+              <?php endif; ?>
+            </td>
+            <td class="text-center"><?php 
+             if($verification_details_row['request_status_id'] == 5 or $verification_details_row['request_status_id'] == 9 or $verification_details_row['request_status_id'] == 1 ):
+             
+                ?>
+                <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>" border="0" />
+              <?php
+              elseif($verification_details_row['request_status_id'] == 10 ):
+               
+               ?>
+                <img src="<?php echo WEBSITE . 'images/g.png'; ?>" border="0" />
+                <?php
+              else:
+                
+                ?>
+                 <img src="<?php echo WEBSITE . 'images/gy.png'; ?>" border="0" />
+              <?php endif; ?>
+            </td>
             <?php $verification_id = core_encrypt($verification_details_row['id']); ?>
             <td class="text-center">
-                <?php  if($verification_details_row['request_status_id'] == 10){
+                <?php if($verification_details_row['request_status_id'] == 10){
                     echo "-";
-                }else{ ?>
+                }else{
+                 ?>
                 <a style="color:#CE232B !important;" href="<?php echo WEBSITE . "ajax_index.php?page=delivery/edit_delivery_modal&id=" . $verification_id;  ?>" data-toggle="modal" data-target="#editvolunteerModal">
-                </a>
-                <?php } ?>
+                delivery</a>
+                <?php  } ?>
             </td>
           </tr>
         <?php 

@@ -1,32 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
 $verification_details = "select a.*,b.request_status_id from ".request_details." a INNER JOIN ".request_details_delivery." b
 ON a.id= b.request_id WHERE request_status_id IN (11) AND is_duplicated='Y'";
 $verification_details_res = mysqli_query($conn,$verification_details) or die(mysqli_error($conn));
 
 ?>
-<html>
+
 <script>
 $(document).ready(function() {
     
     $('.table-bordered').DataTable( {
         "scrollX": true
     } );
-    //window.location.reload();
-    //swal("Something went wrong","verification not Updated","error");
-  $('.glyphicon-edit').on('click', function (e) {
-      var $t = $(this),
-          target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
-
-    $(target)
-      .find("input,textarea,select")
-        .val('')
-        .end()
-      .find("input[type=checkbox], input[type=radio]")
-        .prop("checked", "")
-        .end();
-  })
-
-  $('#actionStatus').on('click',function (e) {
+ 
+  $('#actionStatus').on('click',function () {
     if($(this).prop("checked") == true){
         var status = 'Y';
         var id= $(this).val();

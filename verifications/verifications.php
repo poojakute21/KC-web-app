@@ -59,15 +59,15 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
            <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>"> Pending
        </span>
        <span>
-           <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>"> In Progress
-       </span>
+          <img src="<?php echo WEBSITE . 'images/gy.png'; ?>"> In Progress
+        </span>
        <span style="padding-left:20px;">
            <img src="<?php echo WEBSITE . 'images/g.png'; ?>"> Completed
        </span>
        <span style="padding-left:20px;">
            <img src="<?php echo WEBSITE . 'images/r.png'; ?>"> Rejected
        </span>
-   </div>  
+  </div>  
   <div class="panel-body">
     <table class="table table-bordered dt-responsive nowrap dataTable no-footer">
         <thead>
@@ -109,14 +109,54 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <td class="text-center"><?php echo strtoupper($verification_details_row['request_type']); ?></td>
             <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
             <td class="text-center"><?php 
-            echo get_requeststatus($verification_details_row['request_status_id']); 
-              if($verification_details_row['request_status_id'] == 5){
-                
-              }
-            ?>
+             if($verification_details_row['request_status_id'] == 5):
+                ?>
+                <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>" border="0" />
+              <?php
+              elseif($verification_details_row['request_status_id'] == 4 or $verification_details_row['request_status_id'] == 10 ):
+                ?>
+                <img src="<?php echo WEBSITE . 'images/g.png'; ?>" border="0" />
+                <?php
+              else:
+                ?>
+                 <img src="<?php echo WEBSITE . 'images/gy.png'; ?>" border="0" />
+              <?php endif; ?>
               
-            <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
-            <td class="text-center"><?php echo get_requeststatus($verification_details_row['request_status_id']); ?></td>
+            </td>
+            <td class="text-center"><?php 
+             if($verification_details_row['request_status_id'] == 5 or $verification_details_row['request_status_id'] == 4 ):
+             
+                ?>
+                <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>" border="0" />
+              <?php
+              elseif($verification_details_row['request_status_id'] == 9 or $verification_details_row['request_status_id'] == 10 ):
+               
+               ?>
+                <img src="<?php echo WEBSITE . 'images/g.png'; ?>" border="0" />
+                <?php
+              else:
+                
+                ?>
+                 <img src="<?php echo WEBSITE . 'images/gy.png'; ?>" border="0" />
+              <?php endif; ?>
+            </td>
+            <td class="text-center"><?php 
+             if($verification_details_row['request_status_id'] == 5 or $verification_details_row['request_status_id'] == 9 or $verification_details_row['request_status_id'] == 1 ):
+             
+                ?>
+                <img src="<?php echo WEBSITE . 'images/yBlink.gif'; ?>" border="0" />
+              <?php
+              elseif($verification_details_row['request_status_id'] == 10 ):
+               
+               ?>
+                <img src="<?php echo WEBSITE . 'images/g.png'; ?>" border="0" />
+                <?php
+              else:
+                
+                ?>
+                 <img src="<?php echo WEBSITE . 'images/gy.png'; ?>" border="0" />
+              <?php endif; ?>
+            </td>
             <?php $verification_id = core_encrypt($verification_details_row['id']); ?>
             <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "main.php?page=verifications/edit_verification_modal&id=" . $verification_id;  ?>">
             <span class="glyphicon glyphicon-edit"></span></a>
