@@ -57,15 +57,6 @@ function get_documenttype($roleid) {
     return $row['name'];
 }
 
-function get_requeststatus($roleid) {
-    include('connection.php');
-    $sql = "select name from ".request_status." WHERE id='".$roleid."'";
-    $result = mysqli_query($conn,$sql) or die(mysqli_error($conn));
-    $row = mysqli_fetch_assoc($result);
-    
-    return $row['name'];
-}
-
 function get_requesttype($roleid) {
     include('connection.php');
     $sql = "select name from ".request_types." WHERE id='".$roleid."'";

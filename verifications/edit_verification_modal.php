@@ -1,6 +1,6 @@
 <?php 
 $get_id = core_decrypt(filter_input(INPUT_GET, 'id'));
-$verification_details = "select a.*,b.request_status_id from ".request_details." a INNER JOIN ".request_details_delivery." b
+$verification_details = "select a.*,b.verification_status from ".request_details." a INNER JOIN ".request_details_delivery." b
 ON a.id= b.request_id WHERE a.id ='".$get_id."'";
 $verification_details_res = mysqli_query($conn,$verification_details) or die(mysqli_error($conn));
 $verification_details_row = mysqli_fetch_assoc($verification_details_res);
@@ -66,16 +66,9 @@ $verification_details_row = mysqli_fetch_assoc($verification_details_res);
   <label> Status : </label>
   <select name="progressStatus"  class="form-control">
     <option value="">Please Select</option>
-  <?php 
-    $sql_progress_status = "select name,id from ".request_status." WHERE status='Y' AND used_in='VERIF_FORM'";
-    $result_progress_status = mysqli_query($conn,$sql_progress_status) or die(mysqli_error($conn));
-    while($row_progress_status = mysqli_fetch_array($result_progress_status)){
-
-  ?>
-    <option value=<?php echo $row_progress_status['id']; ?> <?php echo ($row_progress_status['id'] == $verification_details_row['request_status_id']) ? 'selected' : '' ; ?>><?php echo ($row_progress_status['name']); ?></option>
-  <?php
-    }
-  ?>
+    <option value="P" <?php echo ($verification_details_row['verification_status'] == "P") ? 'selected' : '' ; ?>>Pending</option>
+    <option value="Y" <?php echo ($verification_details_row['verification_status'] == "Y") ? 'selected' : '' ; ?>>Approved</option>
+    <option value="N" <?php echo ($verification_details_row['verification_status'] == "N") ? 'selected' : '' ; ?>>Rejected</option>
   </select></br> 
   <input type="button" name="submitEdit" id="submitEdit" value="Update" class="btn btn-danger">
   <a href="<?php echo WEBSITE . "main.php?page=verifications/verifications";  ?>">

@@ -47,19 +47,12 @@ $verification_details_row = mysqli_fetch_assoc($verification_details_res);
   <label>Delivery Pickup Point : </label>
   <input type="text" name="pickupPoint" class="form-control" value=""></br>
  
-<label> Status : </label>
+  <label> Status : </label>
   <select name="progressStatus"  class="form-control">
     <option value="">Please Select</option>
-  <?php 
-    $sql_progress_status = "select name,id from ".request_status." WHERE status='Y' AND used_in = 'SCHED_FORM'";
-    $result_progress_status = mysqli_query($conn,$sql_progress_status) or die(mysqli_error($conn));
-    while($row_progress_status = mysqli_fetch_array($result_progress_status)){
-
-  ?>
-    <option value=<?php echo $row_progress_status['id']; ?> ><?php echo ($row_progress_status['name']); ?></option>
-  <?php
-    }
-  ?>
+    <option value="P" <?php echo ($verification_details_row['scheduling_status'] == "P") ? 'selected' : '' ; ?>>Pending</option>
+    <option value="Y" <?php echo ($verification_details_row['scheduling_status'] == "Y") ? 'selected' : '' ; ?>>Approved</option>
+    <option value="N" <?php echo ($verification_details_row['scheduling_status'] == "N") ? 'selected' : '' ; ?>>Rejected</option>
   </select></br> 
   <label> Remark : </label>
   <textarea name="remarks" class="form-control"></textarea></br>

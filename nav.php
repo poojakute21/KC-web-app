@@ -8,9 +8,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="../dashboard/dashboard.php">Dashboard<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="<?php echo WEBSITE . "main.php?page=duplicated/duplicated"; ?>">Duplicated</a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="<?php echo WEBSITE . "main.php?page=verifications/verifications"; ?>">Verifications</a>
       </li>
