@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2021 at 08:42 PM
+-- Generation Time: Sep 22, 2021 at 05:36 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `khaana-chahiye`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bulk_request_details`
+--
+
+CREATE TABLE `bulk_request_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `request_id` bigint(20) UNSIGNED NOT NULL,
+  `document_id` bigint(20) UNSIGNED NOT NULL,
+  `channel_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contact_no` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `document_no` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` enum('M','F') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_of_people` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `latitude` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `longitude` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remark` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_duplicated` enum('N','Y') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -78,9 +104,14 @@ INSERT INTO `document_types` (`id`, `name`, `status`) VALUES
 CREATE TABLE `request_delivery_details` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `request_id` bigint(20) UNSIGNED NOT NULL,
-  `request_status_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `approve_people_count` mediumint(9) NOT NULL,
+  `verification_status` enum('Y','P','N') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'P',
+  `verification_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `varification_by` bigint(20) NOT NULL,
+  `scheduling_status` enum('P','Y','N') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'P',
+  `scheduling_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scheduling_by` bigint(20) NOT NULL,
   `scheduling_remark` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `delivery_pickup_point` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `delivery_scheduled_on` date NOT NULL,
@@ -89,66 +120,90 @@ CREATE TABLE `request_delivery_details` (
   `delivered_to_contact` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `delivered_by` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `delivered_by_contact` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `delivered_on` timestamp NULL DEFAULT NULL
+  `delivery_status` enum('P','Y','N') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `delivery_set_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `delivery_set_by` bigint(20) NOT NULL,
+  `delivered_on` timestamp NULL DEFAULT NULL,
+  `delivery_remark` int(11) NOT NULL,
+  `last_updated_on` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `request_delivery_details`
 --
 
-INSERT INTO `request_delivery_details` (`id`, `request_id`, `request_status_id`, `user_id`, `approve_people_count`, `scheduling_remark`, `delivery_pickup_point`, `delivery_scheduled_on`, `delivered_to`, `delivery_location`, `delivered_to_contact`, `delivered_by`, `delivered_by_contact`, `delivered_on`) VALUES
-(1, 1, 17, 0, 1, 'Test', 'Thane', '2021-09-18', '', '', '', '', '', NULL),
-(3, 2, 4, 0, 0, '', '', '0000-00-00', '', '', '', '', '', NULL),
-(4, 3, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(5, 4, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(6, 5, 4, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(7, 6, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(8, 7, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(9, 8, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(10, 9, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(11, 10, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(12, 11, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(13, 12, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(14, 13, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(15, 14, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(16, 15, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(17, 16, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(18, 17, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(19, 18, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(20, 19, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(21, 20, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(22, 21, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(23, 22, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(24, 23, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(25, 24, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(26, 25, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(27, 26, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(28, 27, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(29, 28, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(30, 29, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(31, 30, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(32, 31, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(33, 32, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(34, 33, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(35, 34, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(36, 35, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(37, 36, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(38, 37, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(39, 38, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(40, 39, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(41, 40, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(42, 41, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(43, 42, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(44, 43, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(45, 44, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(46, 45, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(47, 46, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(48, 47, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(49, 48, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(50, 49, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(51, 50, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', '0000-00-00 00:00:00'),
-(52, 51, 5, 0, 0, '', '', '0000-00-00', '', '', '', '', '', NULL),
-(54, 52, 5, 1, 0, '', '', '0000-00-00', '', '', '', '', '', NULL);
+INSERT INTO `request_delivery_details` (`id`, `request_id`, `user_id`, `approve_people_count`, `verification_status`, `verification_date`, `varification_by`, `scheduling_status`, `scheduling_date`, `scheduling_by`, `scheduling_remark`, `delivery_pickup_point`, `delivery_scheduled_on`, `delivered_to`, `delivery_location`, `delivered_to_contact`, `delivered_by`, `delivered_by_contact`, `delivery_status`, `delivery_set_date`, `delivery_set_by`, `delivered_on`, `delivery_remark`, `last_updated_on`) VALUES
+(1, 11, 0, 1, 'P', '', 0, 'P', '', 0, 'Test', 'Thane', '2021-09-18', 'ABhsihek', 'Mumbai', '7858965896', 'Pooja', '78596589658', 'P', '', 0, '2021-09-23 18:30:00', 0, '0000-00-00 00:00:00'),
+(3, 1, 0, 2, 'Y', '2020-09-01,2020-09-05', 1, 'Y', '2021-09-20', 1, 'test', 'tha', '2021-09-24', 'Abhishek', 'Mumbai', '258963256', 'Pooja', 'Test', 'Y', '0000-00-00,2021-09-20', 1, '2021-09-24 18:30:00', 0, '0000-00-00 00:00:00'),
+(4, 3, 0, 1, 'Y', '2021-09-08', 1, 'Y', '2021-09-08', 1, 'Tets', 'Thane', '2021-09-24', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(5, 4, 0, 2, 'Y', '2021-09-10', 1, 'P', '', 0, '', 'Thane', '2021-09-30', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(6, 5, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(7, 6, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(8, 7, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(9, 8, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(10, 9, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(11, 10, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(12, 11, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(13, 12, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(14, 13, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(15, 14, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(16, 15, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(17, 16, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(18, 17, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(19, 18, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(20, 19, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(21, 20, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(22, 21, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(23, 22, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(24, 23, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(25, 24, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(26, 25, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(27, 26, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(28, 27, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(29, 28, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(30, 29, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(31, 30, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(32, 31, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(33, 32, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(34, 33, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(35, 34, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(36, 35, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(37, 36, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(38, 37, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(39, 38, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(40, 39, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(41, 40, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(42, 41, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(43, 42, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(44, 43, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(45, 44, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(46, 45, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(47, 46, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(48, 47, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(49, 48, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(50, 49, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(51, 50, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, '0000-00-00 00:00:00', 0, NULL),
+(52, 51, 0, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(54, 52, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(55, 53, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(56, 54, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(57, 55, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(58, 56, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(59, 57, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(60, 58, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(61, 59, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(62, 60, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(63, 61, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(64, 63, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(65, 64, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(66, 65, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(67, 66, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(68, 67, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(69, 68, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(70, 69, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(71, 70, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(72, 71, 1, 0, 'P', '', 0, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL),
+(73, 72, 1, 0, 'P', '', 1, 'P', '', 0, '', '', '0000-00-00', '', '', '', '', '', 'P', '', 0, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -182,10 +237,10 @@ CREATE TABLE `request_details` (
 --
 
 INSERT INTO `request_details` (`id`, `document_id`, `channel_id`, `name`, `address`, `contact_no`, `document_no`, `email`, `gender`, `no_of_people`, `is_beneficiary`, `aid_form`, `request_type`, `latitude`, `longitude`, `remark`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 'Abhishek Uday Kute', '12 24 Padwal Nagar Thane-400604', '7575757575', '7585 8585 8585', 'poojakute21@gmail.com', '', '0', 'N', 2, '', 'latitude', 'longitude', 'remark', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1, 1, 2, 'Abhishek Uday Kute', '12 24 Padwal Nagar Thane-400604', '7575757575', '7585 8585 8585', 'poojakute21@gmail.com', '', '2', 'N', 2, 'single', 'latitude', 'longitude', 'remark', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 1, 2, 'Nitin Tendolkar', '', '9503572922', '1234 1234 1234', 'No', '', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 1, 2, 'Hasnain', '', '7977128379', '2222 2222 2222', 'saqlainshiledar786@gmail.com', '', '3', 'Y', 2, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 1, 2, 'Nabem khan', '', '8828522309', '', 'Govandi', '', '5', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 1, 2, 'Hasnain', '', '7977128379', '7585 8585 8585', 'saqlainshiledar786@gmail.com', '', '3', 'Y', 2, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 1, 2, 'Nabem khan', '', '8828522309', '4545 4545 4545', 'Govandi', '', '5', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (5, 2, 2, 'Shehnaz Syed', '', '7718933030', 'ABCD1245G', '??????', '', '1', 'Y', 2, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (6, 1, 2, 'Rashida bano', '', '8655527738', '4545 4545 4545', 'Mankhudh', '', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (7, 1, 2, 'Heena Sheikh', '', '8591474398', '', '??????', '', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -233,7 +288,26 @@ INSERT INTO `request_details` (`id`, `document_id`, `channel_id`, `name`, `addre
 (49, 2, 2, 'Gayasuddin Ansari', '', '9769245529', '', 'gayasuddin.ansari9769@gmail.com', '', '6', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (50, 2, 2, 'Sunil manu pawar', '', '9309781433', '', 'sunilpawar5296@gmail.com', '', '6', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (51, 1, 4, 'Pooja Uday Kute', 'wagle estate thane 400601', '8989898989', '1452 2563 2563', 'poojakute21@gmail.com', 'M', '8', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
-(52, 1, 4, 'Pooja Uday Kute', 'Wagle estate Thane 400604', '8785965896', '2563 2563 3636', 'poojakute21@gmail.com', 'M', '8', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL);
+(52, 1, 4, 'Pooja Uday Kute', 'Wagle estate Thane 400604', '8785965896', '2563 2563 3636', 'poojakute21@gmail.com', 'M', '8', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(53, 1, 4, 'Pooja Kute', 'Thane 400604', '8785968596', '1212 1212 1212', 'test@gmail.com', 'M', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(54, 1, 4, 'Pooja Kute', 'Thane 400604', '4526235232', '1213 1212 1212', 'test@gmail.com', 'M', '25', 'Y', 2, 'bulk', '', '', '', '0000-00-00 00:00:00', NULL),
+(55, 1, 4, 'Pooja Kute', 'Thane 400604', '7859659659', '1214 1212 1212', 'test@gmail.com', 'M', '3', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(56, 1, 4, 'Pooja Kute', 'Thane 400604', '8785968596', '1212 1212 1212', 'test@gmail.com', 'M', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(57, 1, 4, 'Pooja Kute', 'Thane 400604', '4526235232', '1213 1212 1212', 'test@gmail.com', 'M', '25', 'Y', 2, 'bulk', '', '', '', '0000-00-00 00:00:00', NULL),
+(58, 1, 4, 'Pooja Kute', 'Thane 400604', '7859659659', '1214 1212 1212', 'test@gmail.com', 'M', '3', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(59, 1, 4, 'Pooja Kute', 'Thane 400604', '8785968596', '1212 1212 1212', 'test@gmail.com', 'M', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(60, 1, 4, 'Pooja Kute', 'Thane 400604', '4526235232', '1213 1212 1212', 'test@gmail.com', 'M', '25', 'Y', 2, 'bulk', '', '', '', '0000-00-00 00:00:00', NULL),
+(61, 1, 4, 'Pooja Kute', 'Thane 400604', '7859659659', '1214 1212 1212', 'test@gmail.com', 'M', '3', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(63, 1, 4, 'Pooja Kute', 'Thane 400604', '8785968596', '1212 1212 1212', 'test@gmail.com', 'M', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(64, 1, 4, 'Pooja Kute', 'Thane 400604', '4526235232', '1213 1212 1212', 'test@gmail.com', 'M', '25', 'Y', 2, 'bulk', '', '', '', '0000-00-00 00:00:00', NULL),
+(65, 1, 4, 'Pooja Kute', 'Thane 400604', '7859659659', '1214 1212 1212', 'test@gmail.com', 'M', '3', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(66, 1, 4, 'Pooja Kute', 'Thane 400604', '8785968596', '1212 1212 1212', 'test@gmail.com', 'M', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(67, 1, 4, 'Pooja Kute', 'Thane 400604', '4526235232', '1213 1212 1212', 'test@gmail.com', 'M', '25', 'Y', 2, 'bulk', '', '', '', '0000-00-00 00:00:00', NULL),
+(68, 1, 4, 'Pooja Kute', 'Thane 400604', '7859659659', '1214 1212 1212', 'test@gmail.com', 'M', '3', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(69, 1, 4, 'Pooja Kute', 'Thane 400604', '8785968596', '1212 1212 1212', 'test@gmail.com', 'M', '2', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(70, 1, 4, 'Pooja Kute', 'Thane 400604', '4526235232', '1213 1212 1212', 'test@gmail.com', 'M', '25', 'Y', 2, 'bulk', '', '', '', '0000-00-00 00:00:00', NULL),
+(71, 1, 4, 'Pooja Kute', 'Thane 400604', '7859659659', '1214 1212 1212', 'test@gmail.com', 'M', '3', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL),
+(72, 1, 4, 'Supriya Vijay Kute', 'Test-204', '7858965896', '1256 2563 2563', 'supriya@gmail.com', 'M', '10', 'Y', 1, 'single', '', '', '', '0000-00-00 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -260,35 +334,6 @@ INSERT INTO `request_progress_statuses` (`id`, `name`, `progress`) VALUES
 (6, 'SCHEDULING_COMPLETED', 'Y'),
 (7, 'DELIVERY_IN_PROGRESS', 'Y'),
 (8, 'DELIVERY_COMPLETED', 'Y');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `request_statuses`
---
-
-CREATE TABLE `request_statuses` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `used_in` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `request_statuses`
---
-
-INSERT INTO `request_statuses` (`id`, `name`, `used_in`, `status`) VALUES
-(1, 'DELIVERT PROCESSING', 'DEL FORM', 'Y'),
-(2, 'REJECTED', 'VERIF_FORM', 'Y'),
-(3, 'ACCEPTED', 'DUP_FORM', 'Y'),
-(4, 'VERIFICATION COMPLETED', 'VERIF_FORM', 'Y'),
-(5, 'PENDING', 'VERIF_FORM', 'Y'),
-(6, 'FRAUD', 'VERIF_FORM', 'Y'),
-(7, 'INSUFFICIENT_DATA', 'VERIF_FORM', 'Y'),
-(8, 'CLOSED', 'DEL_FORM', 'Y'),
-(17, 'SCHEDULING COMPLETED', 'SCHED_FORM', 'Y'),
-(18, 'SCHEDULING PENDING', 'SCHED_FORM', 'Y');
 
 -- --------------------------------------------------------
 
@@ -378,6 +423,15 @@ INSERT INTO `users` (`id`, `role_id`, `added_by`, `name`, `email`, `email_verifi
 --
 
 --
+-- Indexes for table `bulk_request_details`
+--
+ALTER TABLE `bulk_request_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `request_details_document_id_foreign` (`document_id`),
+  ADD KEY `request_details_channel_id_foreign` (`channel_id`),
+  ADD KEY `request_id` (`request_id`);
+
+--
 -- Indexes for table `channel_types`
 --
 ALTER TABLE `channel_types`
@@ -395,7 +449,6 @@ ALTER TABLE `document_types`
 ALTER TABLE `request_delivery_details`
   ADD PRIMARY KEY (`id`),
   ADD KEY `request_delivery_details_request_id_foreign` (`request_id`),
-  ADD KEY `request_delivery_details_request_status_id_foreign` (`request_status_id`),
   ADD KEY `request_delivery_details_user_id_foreign` (`user_id`);
 
 --
@@ -411,12 +464,6 @@ ALTER TABLE `request_details`
 -- Indexes for table `request_progress_statuses`
 --
 ALTER TABLE `request_progress_statuses`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `request_statuses`
---
-ALTER TABLE `request_statuses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -445,6 +492,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `bulk_request_details`
+--
+ALTER TABLE `bulk_request_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
 -- AUTO_INCREMENT for table `channel_types`
 --
 ALTER TABLE `channel_types`
@@ -460,25 +513,19 @@ ALTER TABLE `document_types`
 -- AUTO_INCREMENT for table `request_delivery_details`
 --
 ALTER TABLE `request_delivery_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `request_details`
 --
 ALTER TABLE `request_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `request_progress_statuses`
 --
 ALTER TABLE `request_progress_statuses`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `request_statuses`
---
-ALTER TABLE `request_statuses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `request_types`
@@ -501,6 +548,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `bulk_request_details`
+--
+ALTER TABLE `bulk_request_details`
+  ADD CONSTRAINT `request_id` FOREIGN KEY (`request_id`) REFERENCES `request_details` (`id`);
 
 --
 -- Constraints for table `request_details`

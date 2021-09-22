@@ -1,6 +1,6 @@
 <?php
-$verification_details = "select a.*,b.verification_status,b.scheduling_status,b.delivery_status,b.approve_people_count from ".request_details." a INNER JOIN ".request_details_delivery." b
-ON a.id= b.request_id WHERE b.delivery_status = 'P' AND b.scheduling_status='Y'";
+$verification_details = "select a.*,b.verification_status,b.scheduling_status,b.delivery_status,b.approve_people_count,b.scheduling_date,b.verification_date,b.delivery_set_date from ".request_details." a INNER JOIN ".request_details_delivery." b
+ON a.id= b.request_id WHERE b.scheduling_status='Y'";
 $verification_details_res = mysqli_query($conn,$verification_details) or die(mysqli_error($conn));
 
 ?>
@@ -66,8 +66,11 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <th class="text-center">Aid Form</th>
             <th class="text-center">Request Type</th>
             <th class="text-center">Verification</th>
+            <th class="text-center">Verification Date</th>
             <th class="text-center">Scheduling</th>
+            <th class="text-center">Scheduling Date</th>
             <th class="text-center">Delivery</th>
+            <th class="text-center">Delivery Date</th>
           </tr>
         </thead>
         <tbody>
@@ -104,7 +107,15 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
               <?php endif; ?>
               
             </td>
-
+            <td class="text-center">
+              <?php 
+              if($verification_details_row['verification_date'] !=''){
+                  echo  $verification_details_row['verification_date'];
+              }else{
+                echo "-";
+              }; 
+              ?>
+            </td>
             <td class="text-center"><?php 
              if( ($verification_details_row['verification_status'] == "Y" or $verification_details_row['verification_status'] == "P") and $verification_details_row['scheduling_status'] == "P" ):
              
@@ -122,6 +133,15 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
               <?php else: ?>
                 <img src="<?php echo WEBSITE . 'images/gy.png'; ?>" border="0" />
               <?php endif; ?>
+            </td>
+            <td class="text-center">
+              <?php 
+              if($verification_details_row['scheduling_date'] !=''){
+                  echo  $verification_details_row['scheduling_date'];
+              }else{
+                echo "-";
+              }; 
+              ?>
             </td>
             <td class="text-center"><?php 
              if( ($verification_details_row['scheduling_status'] == "Y" or $verification_details_row['scheduling_status'] == "P")  and $verification_details_row['delivery_status'] == "P" ):
@@ -142,6 +162,16 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
                 <img src="<?php echo WEBSITE . 'images/gy.png'; ?>" border="0" />
               <?php endif; ?>
             </td>
+            <td class="text-center">
+              <?php 
+              if($verification_details_row['delivery_set_date'] !=''){
+                  echo  $verification_details_row['delivery_set_date'];
+              }else{
+                echo "-";
+              }; 
+              ?>
+            </td>
+           
           </tr>
         <?php 
         endwhile;
