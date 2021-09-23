@@ -7,23 +7,15 @@ $channel_details_res = mysqli_query($conn,$channel_details) or die(mysqli_error(
 <script>
 $(document).ready(function() {
     $('.table-bordered').DataTable();
-    //window.location.reload();
-    //swal("Something went wrong","Channel not Updated","error");
-    $('.glyphicon-edit').on('click', function (e) {
-      var $t = $(this),
-      target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
-
-      $(target)
-        .find("input,textarea,select")
-        .val('')
-        .end()
-        .find("input[type=checkbox], input[type=radio]")
-        .prop("checked", "")
-        .end();
-    })
-
-
 });
+
+function onClickEdit(id){
+  $.ajax({url: 'ajax_index.php?page=admin/channel/edit_channel_modal&id=' + id, 
+    success: function(result){
+    $("#editChannelModal").find(".modal-content").html(result);
+    $('#editChannelModal').modal('show');
+  }});
+}
 
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
@@ -55,8 +47,16 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <td class="text-center"><?php echo $channel_details_row['name']; ?></td>
             <td class="text-center"><?php echo get_status($channel_details_row['status']); ?></td>
             <?php $channel_id = core_encrypt($channel_details_row['id']); ?>
-            <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/channel/edit_channel_modal&id=" . $channel_id;  ?>" data-toggle="modal" data-target="#editChannelModal">
-            <span class="glyphicon glyphicon-edit"></span></a>
+            <td class="text-center">
+              
+              <!-- <a style="color:#CE232B !important;" href="<?php //echo WEBSITE . "ajax_index.php?page=admin/channel/edit_channel_modal&id=" . $channel_id;  ?>" data-toggle="modal" data-target="#editChannelModal">
+                <span class="glyphicon glyphicon-edit"></span>
+              </a> -->
+
+              <p style="color:#CE232B !important;" onclick="onClickEdit('<?php echo $channel_id; ?>')">
+                <span class="glyphicon glyphicon-edit"></span>
+              </p>
+
             </td>
             <!--<td class="text-center"><a style="color:#CE232B !important;" onclick="DeleteChannel('<?php echo $channel_id; ?>')">
               <span class="glyphicon glyphicon-remove" ></span></a>
