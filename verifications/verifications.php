@@ -1,6 +1,39 @@
 <?php
 $verification_details = "select a.*,b.verification_status,b.scheduling_status,b.delivery_status,b.scheduling_date,b.verification_date,b.delivery_set_date from ".request_details." a INNER JOIN ".request_details_delivery." b
 ON a.id= b.request_id";
+
+if(isset($_POST['submit'])){
+
+  $request_type = $_POST['request_type'];
+  $level = $_POST['level'];
+  $status = $_POST['status'];
+  $date = $_POST['filter_date'];
+
+  if(!empty($request_type)){
+    $verification_details .= " and a.request_type = '$request_type'";
+  }
+
+  if(!empty($level) && !empty($status)){
+
+    if($level == 'verification'){
+      $verification_details .= " and b.verification_status = '".$status."'";
+    }
+    else if($level == 'schedule'){
+      $verification_details .= " and b.scheduling_status = '".$status."'";
+    }
+    else if($level == 'delivery'){
+      $verification_details .= " and b.delivery_status = '".$status."'";
+    }
+    
+  }
+
+  if(!empty($date) && trim(' ',$date)){
+    $verification_details .= " and  b.created_at =".$date;
+  } 
+
+  // print_r($verification_details);exit;
+}
+
 $verification_details_res = mysqli_query($conn,$verification_details) or die(mysqli_error($conn));
 
 ?>
@@ -8,6 +41,8 @@ $verification_details_res = mysqli_query($conn,$verification_details) or die(mys
 <script>
 $(document).ready(function() {
     
+    // $('#datetimepicker1').datetimepicker();
+
     $('.table-bordered').DataTable( {
         "scrollX": true
     } );
@@ -64,7 +99,12 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
        <span style="padding-left:20px;">
            <img src="<?php echo WEBSITE . 'images/r.png'; ?>"> Rejected
        </span>
-  </div>  
+  </div>
+
+  <!-- Filter Drop down -->
+  <?php require_once(ABSPATH.'includes/filter.php'); ?>
+  <!-- Filter drop end  -->
+
   <div class="panel-body">
     <table class="table table-bordered dt-responsive nowrap dataTable no-footer">
         <thead>
