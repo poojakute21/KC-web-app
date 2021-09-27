@@ -7,23 +7,16 @@ $documenttype_details_res = mysqli_query($conn,$documenttype_details) or die(mys
 <script>
 $(document).ready(function() {
     $('.table-bordered').DataTable();
-
-    
-  $('.glyphicon-edit').on('click', function (e) {
-      var $t = $(this),
-          target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
-
-    $(target)
-      .find("input,textarea,select")
-        .val('')
-        .end()
-      .find("input[type=checkbox], input[type=radio]")
-        .prop("checked", "")
-        .end();
-  })
-
-
 });
+
+
+function onClickEdit(id){
+  $.ajax({url: 'ajax_index.php?page=admin/documenttype/edit_document_modal&id=' + id, 
+    success: function(result){
+    $("#editChannelModal").find(".modal-content").html(result);
+    $('#editChannelModal').modal('show');
+  }});
+}
 
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
@@ -56,8 +49,10 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <td class="text-center"><?php echo $documenttype_details_row['name']; ?></td>
             <td class="text-center"><?php echo get_status($documenttype_details_row['status']); ?></td>
             <?php $document_id = core_encrypt($documenttype_details_row['id']); ?>
-            <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/documenttype/edit_document_modal&id=" . $document_id;  ?>" data-toggle="modal" data-target="#editDocumentTypeModal">
-            <span class="glyphicon glyphicon-edit"></span></a>
+            <td class="text-center">
+              <p style="color:#CE232B !important;" onclick="onClickEdit('<?php echo $document_id; ?>')">
+                <span class="glyphicon glyphicon-edit"></span>
+              </p>
             </td>
             <!-- <td class="text-center"><a style="color:#CE232B !important;" onclick="DeleteDocumentType('<?php echo $document_id; ?>')">
               <span class="glyphicon glyphicon-remove" ></span></a>
