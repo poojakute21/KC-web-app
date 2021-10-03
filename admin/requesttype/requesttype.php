@@ -7,23 +7,14 @@ $requesttype_details_res = mysqli_query($conn,$requesttype_details) or die(mysql
 <script>
 $(document).ready(function() {
     $('.table-bordered').DataTable();
-    //window.location.reload();
-    //swal("Something went wrong","requesttype not Updated","error");
-  $('.glyphicon-edit').on('click', function (e) {
-      var $t = $(this),
-          target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
-
-    $(target)
-      .find("input,textarea,select")
-        .val('')
-        .end()
-      .find("input[type=checkbox], input[type=radio]")
-        .prop("checked", "")
-        .end();
-  })
-
-
 });
+function onClickEdit(id){
+  $.ajax({url: 'ajax_index.php?page=admin/documenttype/edit_document_modal&id=' + id, 
+    success: function(result){
+    $("#editChannelModal").find(".modal-content").html(result);
+    $('#editChannelModal').modal('show');
+  }});
+}
 
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
@@ -50,8 +41,8 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
         <?php
         if(mysqli_num_rows($requesttype_details_res) > 0):
         while($requesttype_details_row = mysqli_fetch_array($requesttype_details_res)):?>
-          <tr>
-            <td class="text-center"><?php echo $requesttype_details_row['id']; ?></td>
+          <tr>     
+            <td class="text-center"><?php echo $requesttype_details_row['id']; ?></td>   
             <td class="text-center"><?php echo $requesttype_details_row['name']; ?></td>
             <td class="text-center"><?php echo get_status($requesttype_details_row['status']); ?></td>
             <?php $requesttype_id = core_encrypt($requesttype_details_row['id']); ?>

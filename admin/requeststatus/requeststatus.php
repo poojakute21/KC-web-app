@@ -7,23 +7,15 @@ $requeststatus_details_res = mysqli_query($conn,$requeststatus_details) or die(m
 <script>
 $(document).ready(function() {
     $('.table-bordered').DataTable();
-    //window.location.reload();
-    //swal("Something went wrong","Request Status not Updated","error");
-  $('.glyphicon-edit').on('click', function (e) {
-      var $t = $(this),
-          target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
-
-    $(target)
-      .find("input,textarea,select")
-        .val('')
-        .end()
-      .find("input[type=checkbox], input[type=radio]")
-        .prop("checked", "")
-        .end();
-  })
-
-
 });
+
+function onClickEdit(id){
+  $.ajax({url: 'ajax_index.php?page=admin/requeststatus/edit_requeststatus_modal&id=' + id, 
+    success: function(result){
+    $("#editChannelModal").find(".modal-content").html(result);
+    $('#editChannelModal').modal('show');
+  }});
+}
 
 var WEBSITE = "<?php echo WEBSITE; ?>";
 
@@ -55,12 +47,11 @@ var WEBSITE = "<?php echo WEBSITE; ?>";
             <td class="text-center"><?php echo $requeststatus_details_row['name']; ?></td>
             <td class="text-center"><?php echo get_status($requeststatus_details_row['status']); ?></td>
             <?php $requeststatus_id = core_encrypt($requeststatus_details_row['id']); ?>
-            <td class="text-center"><a style="color:#CE232B !important;" href="<?php echo WEBSITE . "ajax_index.php?page=admin/requeststatus/edit_requeststatus_modal&id=" . $requeststatus_id;  ?>" data-toggle="modal" data-target="#editrequeststatusModal">
-            <span class="glyphicon glyphicon-edit"></span></a>
+            <td class="text-center">
+            <p style="color:#CE232B !important;" onclick="onClickEdit('<?php echo $requeststatus_id; ?>')">
+                <span class="glyphicon glyphicon-edit"></span>
+              </p>
             </td>
-            <!--<td class="text-center"><a style="color:#CE232B !important;" onclick="Deleterequeststatus('<?php echo $requeststatus_id; ?>')">
-              <span class="glyphicon glyphicon-remove" ></span></a>
-            </td>-->
           </tr>
         <?php 
         endwhile;
