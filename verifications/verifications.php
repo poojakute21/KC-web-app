@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
   }
 
   if(!empty($date) && trim(' ',$date)){
-    $verification_details .= " and  b.created_at =".$date;
+    $verification_details .= " and  a.created_at =".$date;
   } 
 
   // print_r($verification_details);exit;
