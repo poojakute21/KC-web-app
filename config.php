@@ -2,7 +2,7 @@
 include('includes/connection.php');
 include('includes/functions.php');
 define('MAINSITE', 'http://localhost/');
-define('WEBSITE',  MAINSITE . 'khaana-chahiye/');
+define('WEBSITE',  MAINSITE . 'KC-web-app/');
 
 define('ABSPATH', dirname(__FILE__) . '/');
 
